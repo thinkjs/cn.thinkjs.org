@@ -245,8 +245,8 @@ const user = think.mongo('user');
 
 #### mongo.limit(offset, length)
 
-* `offset` {Number} SQL 语句里的 offset
-* `length` {Number} SQL 语句里的 length
+* `offset` {Number} 起始位置(类似于 SQL 语句里的 offset)
+* `length` {Number} 长度(类俗语 SQL 语句里的 length)
 * `return` {this}
 
 设置 SQL 语句里的 `limit`，会赋值到 `this.options.limit` 属性上，便于后续解析。
@@ -254,9 +254,9 @@ const user = think.mongo('user');
 ```js
 module.exports = class extends think.Mongo() {
   async getList() {
-    // SQL: SELECT * FROM `test_d` LIMIT 10
+    // 前 10 条
     const list1 = await this.limit(10).select();
-    // SQL: SELECT * FROM `test_d` LIMIT 10,20
+    // 11 ~ 20条
     const list2 = await this.limit(10, 20).select();
   }
 }
@@ -274,9 +274,7 @@ module.exports = class extends think.Mongo() {
 ```js
 module.exports = class extends think.Mongo() {
   async getList() {
-    // SQL: SELECT * FROM `test_d` LIMIT 0,10
     const list1 = await this.page(1).select(); // 查询第一页，每页 10 条
-    // SQL: SELECT * FROM `test_d` LIMIT 20,20
     const list2 = await this.page(2, 20).select(); // 查询第二页，每页 20 条
   }
 }
@@ -306,14 +304,14 @@ exports.model = {
 ```js
 module.exports = class extends think.Mongo{
   async getList() {
-    const data1 = await this.where(where).select();
+    const data = await this.where(where).select();
   }
 }
 ```
 
 #### model.field(field)
 
-* `field` {String} 查询字段，支持 `AS`。
+* `field` {String} 查询字段。
 * `return` {this}
 
 设置查询字段，设置后会赋值到 `this.options.field` 属性上，便于后续解析。
@@ -324,8 +322,6 @@ module.exports = class extends think.Mongo{
     const data1 = await this.field('d_name').select();
 
     const data2 = await this.field('c_id,d_name').select();
-
-    const data3 = await this.field('c_id AS cid, d_name').select();
   }
 }
 ```
@@ -339,7 +335,7 @@ module.exports = class extends think.Mongo{
 
 设置当前模型对应的表名，如果 hasPrefix 为 false，那么表名会追加 `tablePrefix`，最后的值会设置到 `this.options.table` 属性上。
 
-如果没有设置该属性，那么最后解析时通过 `mode.tableName` 属性获取表名。
+如果没有设置该属性，那么最后解析时通过 `model.tableName` 属性获取表名。
 
 
 #### model.parseOptions(options)
@@ -372,7 +368,7 @@ options = {
 * `order` {String | Array | Object} 排序方式
 * `return` {this}
 
-设置 SQL 中的排序方式。会添加 `this.options.order` 属性，便于后续分析。
+设置排序方式。会添加 `this.options.order` 属性，便于后续分析。
 
 #### model.group(group)
 
@@ -530,7 +526,7 @@ module.exports = class extends think.Controller {
 
 当 where 条件未命中到任何数据时添加数据，命中数据则更新该数据。
 
-#### updateMany(dataList, options)
+#### model.updateMany(dataList, options)
 
 * `dataList` {Array} 要更新的数据列表
 * `options` {Object} 操作选项，会通过 [parseOptions](/doc/3.0/relation_model.html#toc-d91) 方法解析
@@ -669,3 +665,50 @@ module.exports = class extends think.Controller {
   }
 }
 ```
+#### model.sum(field)
+
+* `field` {String} 字段名
+* `return` {Number|Array} 返回求和结果
+
+没有分组情况下，默认返回数字，有人组的情况下返回分组信息以及求和结果，如下示例：
+
+```js
+module.exports = class extends think.Controller {
+  async listAction(){
+    let model = this.mongo('user');
+    // ret1 = 123  没有分组情况下，返回数字
+    let ret1 = await m.sum('age');		
+    // ret2 = [{group:'thinkjs1',total:6},{group:'thinkjs2',total:8}]
+    // 有分组的情况返回[{group:xxx,total:xxx}...]
+    let ret2 = await m.group('name').sum('age'); 
+	// ret3 = [{group:{name:'thinkjs',version'1.0'},total:6},{group:{name:'thinkjs',version'2.0'},total:8},]
+    let ret3 = await m.where({name:'thinkjs'}).order('version ASC').group('name,version').sum('age'); 
+  }
+}
+```
+
+#### model.aggregate(options)
+* `options` {Object} 操作选项，会通过 [parseOptions](/doc/3.0/relation_model.html#toc-d91) 方法解析
+* `return` {Promise}
+
+聚合操作，详见[Aggregation](https://docs.mongodb.com/manual/reference/sql-aggregation-comparison/)
+
+#### model.mapReduce(map,reduce,out)
+* `map` {	function | string} mapping方法
+* `reduce` {	function | string} reduce方法
+* `out` {Object} 其他配置
+* `return` {Promise}
+* 
+集合中 Map-Reduce 操作，详见[MapReduce](http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#mapReduce)
+
+#### model.createIndex(indexes,options)
+* `indexes` {	string | object} 索引名
+* `options` {Object} 操作选项
+* `return` {Promise}
+
+创建索引，详见[ensureIndex](http://mongodb.github.io/node-mongodb-native/2.2/api/Db.html#ensureIndex)
+
+#### model.getIndexes()
+* `return` {Promise}
+
+获取索引

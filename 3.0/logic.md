@@ -93,6 +93,20 @@ module.exports = class extends think.Logic {
 
 有时候在 `POST` 类型下，可能会获取上传的文件或者获取 URL 上的参数，这时候就需要指定获取数据的方式了。支持的获取数据方式为 `GET`，`POST` 和 `FILE`。
 
+```js
+module.exports = class extends think.Logic {
+  indexAction(){
+    let rules = {
+      username: {
+        required: true,
+        method: 'GET'       // 指定获取数据的方式
+      }
+    }
+    let flag = this.validate(rules);
+  }
+}
+```
+
 #### 字段默认值
 
 使用 `default:value` 来指定字段的默认值，如果当前字段值为空，会把默认值赋值给该字段，然后执行后续的规则校验。
@@ -116,7 +130,7 @@ module.exports = class extends think.Logic {
     let flag = this.validate(rules);
     if(!flag){
       return this.fail('validate error', this.validateErrors);
-      // 如果出错，返回
+      // 如果校验失败，返回
       // {"errno":1000,"errmsg":"validate error","data":{"username":"username can not be blank"}}
     }
   }
@@ -146,7 +160,7 @@ module.exports = class extends think.Logic {
 
 如果返回值为 `false`，那么可以通过访问 `this.validateErrors` 属性获取详细的错误信息。拿到错误信息后，可以通过 `this.fail` 方法把错误信息以 JSON 格式输出，也可以通过 `this.display` 方法输出一个页面，Logic 继承了 Controller 可以调用 Controller 的 方法。
 
-##### 自动调用校验方法
+#### 自动调用校验方法
 
 多数情况下都是校验失败后，输出一个 JSON 错误信息。如果不想每次都手动调用 `this.validate` 进行校验，可以通过将校验规则赋值给 `this.rules` 属性进行自动校验，如：
 
@@ -181,6 +195,50 @@ module.exports = class extends think.Logic {
 ```
 
 将校验规则赋值给 `this.rules` 属性后，会在这个 Action 执行完成后自动校验，如果有错误则直接输出 JSON 格式的错误信息。
+
+#### 多action复用校验规则
+
+对于多个action有时我们想要复用一些校验规则，例如对于 `logic` 中的 `indexAction` 与 `homeAction` 都要校验 `app_id` 字段必填，可以将 `app_id` 的校验提到 `scope` 中：
+
+```js
+module.exports = class extends think.Logic {
+  get scope() {
+    return {
+      app_id: {
+        required: true
+      }
+    }
+  }
+
+  indexAction(){
+    let rules = {
+      email: {
+        required: true
+      }
+    }
+
+    // 自定义 app_id 的错误信息
+    let msgs = {
+      app_id: '{name} 不能为空(自定义错误)',
+    }
+
+    if(!this.validate(rules, msgs)) {
+      return this.fail(this.validateErrors);
+    }
+  }
+
+  homeAction() {
+    // email 校验的简化写法
+    // 此时 app_id 使用默认错误信息
+    this.rules = {
+      email: {
+        required: true
+      }
+    }
+  }
+
+}
+```
 
 #### 数组校验
 
@@ -337,8 +395,8 @@ module.exports = {
 (
   value: ,                // name1 参数，在相应的请求中的值，此处为 ctx['param']['name1']
   {
-    ctx,                  // 所有请求类型集合
-    currentQuery,         // name1 对应请求类型，此处为 ctx['param']
+    ctx,                  // ctx 对象
+    currentQuery,         // name1 对应请求类型，此处为 ctx['param'] （表示从 ctx 中获取到 get 类型的参数）
     parsedValidValue,     // name1 在 _eqValid 方法解析返回的结果
     rule,                 // name1 的校验规则内容
     rules,                // 所有的校验规则内容
@@ -957,6 +1015,15 @@ module.exports = class extends think.Logic {
 
 #### image
 
+```js
+let rules = {
+  file: {
+    required: true, // required 默认为false
+    image: true,
+    method: 'file' // 文件通过post提交，验证文件需要制定 method 为 `file`
+  }
+}
+```
 上传的文件需要为图片，`image: true`。
 
 #### startWith

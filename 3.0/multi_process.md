@@ -26,17 +26,45 @@ module.exports = {
 * `think.messenger.broadcast` 将消息广播到所有 Worker 进程
   
   ```js
-  //监听事件
+  //监听事件  src/bootstrap/worker.js
   think.messenger.on('test', data => {
     //所有进程都会捕获到该事件，包含当前的进程
   });
 
-  if(xxx){
-    //发送广播事件
-    think.messenger.broadcast('test', data)
+  // src/controller/xxx.js
+  //发送广播事件
+  think.messenger.broadcast('test', data);
+  ```
+
+* `think.messenger.consume` 任务消费，只在一个进程下执行（有时候系统启动下需要启动一些任务，但只希望任务只会在一个进程下执行一次）
+
+  ```js
+  // src/bootstrap/worker.js
+  think.messenger.on('consumeEvent', (data) => {
+    // 该回调函数只会在一个进程下执行
+  });
+
+  //调用事件，只会在一个进程下执行一次
+  think.messenger.consume('consumeEvent', data);
+  ```
+
+* `think.messenger.map` 执行所有进程下的任务，并返回任务结果集（结果集需要通过 JSON.stringify 在进程间传递，结果集不能太大，如果太大的话可以通过其他的存储传递，如：文件）
+
+  ```js
+  // src/bootstrap/worker.js
+  think.messenger.on('testMap', (data) => {
+    return Math.random();
+  });
+
+  // src/controller/xxx.js
+  if(xxx) {
+    // 获取到所有子进程执行后的返回值，值为数组
+    // 执行时只会取注册的第一个事件回调
+    const data = await think.messenger.map('testMap', data);
   }
   ```
 
+注：consume 和 map 方法需要 [think-cluster](https://github.com/thinkjs/think-cluster) 的版本 `>=1.4.0`。
 
 ### 自定义进程通信
 
