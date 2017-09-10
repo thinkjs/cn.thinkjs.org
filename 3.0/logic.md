@@ -364,7 +364,7 @@ module.exports = class extends think.Logic {
   indexAction() {
     let rules = {
       name1: {
-        eqValid: 'lucy',
+        eqLucy: 'lucy',
         method: 'GET'
       }
     }
@@ -379,12 +379,12 @@ module.exports = class extends think.Logic {
 // src/config/validator.js
 module.exports = {
   rules: {
-    eqValid(value, { ctx, currentQuery, parsedValidValue, rule, rules, validName, validValue }) {
-      return value === parsedValidValue;
+    eqLucy(value, { validName, validValue, ctx, currentQuery, rule, rules, parsedValidValue }) {
+      return value === validValue;
     }
   },
   messages: {
-    eqValid: '{name} should eq {args}'
+    eqLucy: '{name} should eq {args}'
   }
 }
 
@@ -393,15 +393,15 @@ module.exports = {
 自定义的校验方法会被注入以下参数，对于上述例子来说
 ```js
 (
-  value: ,                // name1 参数，在相应的请求中的值，此处为 ctx['param']['name1']
+  value: ,                // 参数在相应的请求中的值，此处为 ctx['param']['name1']
   {
+    validName,            // 校验方法名，此处为 'eqLucy'
+    validValue,           // 校验方法名对应的值，此处为 'lucy'
+    currentQuery,         // 当前请求类型的值，此处为 ctx['param'] （表示从 ctx 中获取到 get 类型的参数）
     ctx,                  // ctx 对象
-    currentQuery,         // name1 对应请求类型，此处为 ctx['param'] （表示从 ctx 中获取到 get 类型的参数）
-    parsedValidValue,     // name1 在 _eqValid 方法解析返回的结果
-    rule,                 // name1 的校验规则内容
-    rules,                // 所有的校验规则内容
-    validName,            // 此处为 'eqValid'
-    validValue            // 此处为 'lucy'
+    rule,                 // 校验规则内容，此处为 {eqLucy: 'lucy', method: 'GET'}
+    rules,                // 所有的校验规则内容，此处为 let rules 的值
+    parsedValidValue      // _eqLucy 方法解析返回的结果, 如果没有 _eqLucy 方法，则为 validValue
   }
 )
 ```
@@ -419,7 +419,7 @@ module.exports = class extends think.Logic {
   indexAction() {
     let rules = {
       name1: {
-        eqValid: 'name2',
+        eqLucy: 'name2',
         method: 'GET'
       }
     }
@@ -433,22 +433,22 @@ module.exports = class extends think.Logic {
 // src/config/validator.js
 module.exports = {
   rules: {
-    _eqValid(validValue, { ctx, currentQuery, rule, rules, validName }){
+    _eqLucy(validValue, { validName, currentQuery, ctx, rule, rules }){
       let parsedValue = currentQuery[validValue];
       return parsedValue;
     },
 
-    eqValid(value, { ctx, currentQuery, parsedValidValue, rule, rules, validName, validValue }) {
+    eqLucy(value, { validName, validValue, currentQuery, ctx, rule, rules, parsedValidValue }) {
       return value === parsedValue;
     }
   },
   messages: {
-    eqValid: '{name} should eq {args}'
+    eqLucy: '{name} should eq {args}'
   }
 }
 ```
 
-解析参数 `_eqValid` 注入的第一个参数是当前校验规则的值（对于本例子，validValue 为 'name2'），其他参数意义同上面的介绍。
+解析参数 `_eqLucy` 注入的第一个参数是当前校验规则的值（对于本例子，validValue 为 'name2'），其他参数意义同上面的介绍。
 
 #### 自定义错误信息
 
