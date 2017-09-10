@@ -30,9 +30,12 @@ RESTful Controller 创建后并不能立即对其访问，需要添加对应的[
 
 ```js
 module.exports = [
-  [/\/user(?:\/(\d+))?/, 'user?id=:1', 'rest']
+  [/\/user(?:\/(\d+))?/, 'user?id=:1', 'rest'], // 第一种方式
+  ['/user/:id?', '/user', 'rest'], // 第二种方式
+  ['/user/:id?', 'rest'], // 第三种方式
 ]
 ```
+注：第三种方式需要 [think-router](https://github.com/thinkjs/think-router) 的版本 `>=1.0.17`。
 
 上面自定义路由的含义为：
 
@@ -41,6 +44,8 @@ module.exports = [
 * `rest` 表示为 REST API
 
 通过自定义路由，将 `/user/:id` 相关的请求指定为 REST Controller，然后就可以对其访问了。
+
+
 
 * `GET /user` 获取用户列表，执行 `getAction`
 * `GET /user/:id` 获取某个用户的详细信息，执行 `getAction`
