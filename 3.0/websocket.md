@@ -161,7 +161,7 @@ module.exports = class extends think.Controller {
 
 #### io 对象
 
-在 Action 里可以通过 `this.ctx.io` 来获取 `io` 对象，该对象为 socket.io 的一个实例。
+在 Action 里可以通过 `this.ctx.req.io` 来获取 `io` 对象，该对象为 socket.io 的一个实例。
 
 io 对象包含的方法参见文档 [https://socket.io/docs/server-api/#server](https://socket.io/docs/server-api/#server)。
 
