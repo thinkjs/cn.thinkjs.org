@@ -897,7 +897,7 @@ exports.model = {
 
 设置 where 查询条件，会添加 `this.options.where` 属性，方便后续解析。可以通过属性 `_logic` 设置逻辑，默认为 `AND`。可以通过属性 `_complex` 设置复合查询。
 
-`注`：where 条件中的值必须要在 Logic 里做数据校验，否则可能会有 SQL 注入漏洞。
+`注意：where 条件中的值必须要在 Logic 里做数据校验，否则可能会有 SQL 注入漏洞。`
 
 ##### 普通条件
 
