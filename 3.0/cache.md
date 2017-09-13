@@ -83,7 +83,9 @@ module.exports = class extends think.Controller {
   async index2Action() {
     await this.cache('name', 'value', {
       type: 'redis',
-      timeout: 24 * 60 * 60 * 1000
+      redis: {
+        timeout: 24 * 60 * 60 * 1000
+      }
     });
   }
 }
