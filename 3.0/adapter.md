@@ -2,7 +2,7 @@
 
 Adapter 是用来解决一类功能的多种实现，这些实现提供一套相同的接口，类似设计模式里的工厂模式。如：支持多种数据库，支持多种模版引擎等。通过这种方式，可以很方便的在不同的类型中进行切换。Adapter 一般配合 Extend 一起使用。
 
-框架默认提供了很多种 Adapter，如： View，Model，Cache，Session，Websocket，项目中也可以根据需要进行扩展，也可以引入第三方的 Adapter。
+框架默认提供了很多种 Adapter，如： View、Model、Cache、Session、Websocket，项目中也可以根据需要进行扩展，也可以引入第三方的 Adapter。
 
 ### Adapter 配置
 

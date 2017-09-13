@@ -13,7 +13,7 @@ $ npm install -g think-cli
 
 如果是从 `2.x` 升级，需要将之前的命令删除，然后重新安装。
 
-### 卸载旧版本命名
+### 卸载旧版本命令
 
 ```sh
 $ npm uninstall -g thinkjs

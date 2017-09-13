@@ -247,7 +247,7 @@ module.exports = [
 
 注意：如果启动了多个 worker，那么会打印多遍。
 
-#### 怎么透传数据到 Logic、Controlelr 中？
+#### 怎么透传数据到 Logic、Controller 中？
 
 有时候需要在中间件里设置一些数据，然后在后续的 Logic、Controller 中获取，此时可以通过 `ctx.state` 完成，具体请见 [透传数据](/doc/3.0/controller.html#toc-247)。
 
