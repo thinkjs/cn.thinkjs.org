@@ -231,6 +231,7 @@ const user2 = think.model('admin/user'); // 实例化后台的 user 模型
 * [add](/doc/3.0/relation_model.html#toc-c73) 添加单条数据
 * [thenAdd](/doc/3.0/relation_model.html#toc-3e2) where 条件不存在时添加
 * [addMany](/doc/3.0/relation_model.html#toc-a55) 添加多条数据
+* [selectAdd](/doc/3.0/relation_model.html#toc-a56) 添加子查询的结果数据
 
 #### 更新数据
 
@@ -1526,6 +1527,30 @@ module.exports = class extends think.Controller {
       {name: 'xxx', pwd: 'yyy'},
       {name: 'xxx1', pwd: 'yyy1'}
     ]);
+  }
+}
+```
+
+#### model.selectAdd(fields, table, options)
+
+* `fields` {Array | String} 列名
+* `table` {String} 表名
+* `options` {Object} 操作选项，会通过 [parseOptions](/doc/3.0/relation_model.html#toc-d91) 方法解析
+* `return` {Promise} 返回插入的 ID 列表
+
+添加从 options 解析出来子查询的结果数据。
+
+```js
+module.exports = class extends think.Controller {
+  async addAction(){
+    let model = this.model('user');
+    let insertIds = await model.selectAdd(
+      'xxx,xxx1,xxx2',
+      'tableName',
+      {
+        id: '1'
+      }
+    );
   }
 }
 ```
