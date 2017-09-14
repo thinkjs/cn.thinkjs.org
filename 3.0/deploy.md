@@ -171,3 +171,22 @@ server {
 ### HTTPS
 
 现代网站强制建议使用 HTTPS 访问，这样可以提供网站内容的安全性，避免内容被监听、篡改等问题。如果不愿意支付证书的费用，可以使用 [Let's Encrypt](https://letsencrypt.org/) 提供的免费 SSL/TLS 证书，可以参见文章 [Let's Encrypt，免费好用的 HTTPS 证书](https://imququ.com/post/letsencrypt-certificate.html)。
+
+### 常见问题
+
+#### 为什么上线后静态资源访问不了？
+
+创建项目时，会自动生成 `src/config/middleware.js`，里面有个 resource 中间件用来处理静态资源的请求，但这个中间件默认只在开发环境下开启的，线上环境是关闭的，所以会看到上线后静态资源访问不了的情况。
+
+线上环境静态资源请求推荐用 nginx 来处理，这样性能会更高，对 Node 服务的压力也会小一些。如果非要框架处理静态资源请求，那么可以把 `src/config/middleware.js` 里的配置打开即可。
+
+```js
+module.exports = [
+  ...
+  {
+    handle: 'resource',
+    enable: true // 始终开启，默认为 `enable: isDev` 表示只再开发环境下开启
+  },
+  ...
+]
+```
