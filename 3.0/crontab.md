@@ -22,7 +22,7 @@ module.exports = [{
 }, {
   cron: '0 */1 * * *',
   handle: 'crontab/test',
-  worker: 'all'
+  type: 'all'
 }]
 ```
 
@@ -34,7 +34,7 @@ module.exports = [{
 * `cron` {String} crontab 的格式，如 `0 */1 * * *`
 
   crontab 格式，具体见 <http://crontab.org/>。如果配置了 `interval` 属性，那么会忽略该属性。
-* `worker` {String} 任务执行方式, *one* 或者 *all*, 默认是 *one*
+* `type` {String} 任务执行方式, *one* 或者 *all*, 默认是 *one*
 
   任务会在哪些子进程中执行，默认只在一个子进程中执行，`all` 为在所有子进程中执行。即使配置了一个子进程中执行，也只能保证一个机器下在一个子进程中执行，多台机器下还是会执行多次。如果跨机房、跨机器只希望执行一次，那么可以通过 `enable` 参数控制或者命令行执行来完成。
 * `handle` {Function | String} 执行任务,执行相应函数或者是路由地址，如：`crontab/test`
