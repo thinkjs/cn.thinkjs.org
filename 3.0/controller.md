@@ -403,7 +403,7 @@ module.exports = class extends think.Controller {
 
 json 的方式输出内容，等同于 [ctx.json](/doc/3.0/context.html#toc-77f)。
 
-#### controller.status(status)
+#### controller.status
 
 设置状态码，等同于 [ctx.status](/doc/3.0/context.html#toc-606)。
 
