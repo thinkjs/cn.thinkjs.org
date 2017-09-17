@@ -379,7 +379,7 @@ module.exports = class extends think.Logic {
 // src/config/validator.js
 module.exports = {
   rules: {
-    eqLucy(value, { validName, validValue, ctx, currentQuery, rule, rules, parsedValidValue }) {
+    eqLucy(value, { argName, validName, validValue, ctx, currentQuery, rule, rules, parsedValidValue }) {
       return value === validValue;
     }
   },
@@ -395,13 +395,14 @@ module.exports = {
 (
   value: ,                // 参数在相应的请求中的值，此处为 ctx['param']['name1']
   {
+    argName,              // 参数名称，此处为 name1
     validName,            // 校验方法名，此处为 'eqLucy'
     validValue,           // 校验方法名对应的值，此处为 'lucy'
+    parsedValidValue,      // _eqLucy 方法解析返回的结果, 如果没有 _eqLucy 方法，则为 validValue
     currentQuery,         // 当前请求类型的值，此处为 ctx['param'] （表示从 ctx 中获取到 get 类型的参数）
     ctx,                  // ctx 对象
     rule,                 // 校验规则内容，此处为 {eqLucy: 'lucy', method: 'GET'}
     rules,                // 所有的校验规则内容，此处为 let rules 的值
-    parsedValidValue      // _eqLucy 方法解析返回的结果, 如果没有 _eqLucy 方法，则为 validValue
   }
 )
 ```
@@ -433,12 +434,12 @@ module.exports = class extends think.Logic {
 // src/config/validator.js
 module.exports = {
   rules: {
-    _eqLucy(validValue, { validName, currentQuery, ctx, rule, rules }){
+    _eqLucy(validValue, { argName, validName, currentQuery, ctx, rule, rules }){
       let parsedValue = currentQuery[validValue];
       return parsedValue;
     },
 
-    eqLucy(value, { validName, validValue, currentQuery, ctx, rule, rules, parsedValidValue }) {
+    eqLucy(value, { argName, validName, validValue, parsedValidValue, currentQuery, ctx, rule, rules }) {
       return value === parsedValue;
     }
   },
