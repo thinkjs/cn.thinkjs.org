@@ -9,6 +9,7 @@ ThinkJS 是一款面向未来开发的 Node.js 框架，整合了大量的项目
 * 性能优异，单元测试覆盖程度高
 * 内置自动编译、自动更新机制，方便快速开发
 * 使用更优雅的 `async/await` 处理异步问题，不再支持 `*/yield`
+* 从 3.2 开始支持 [TypeScript](http://www.typescriptlang.org/)
 
 ### 架构
 

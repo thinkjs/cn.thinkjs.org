@@ -36,6 +36,7 @@
       "国际化与本地化": "i18n"
     },
     "扩展功能": {
+      "TypeScript": "typescript",
       "多模块项目": "multi_module",
       "线上部署": "deploy",
       "定时任务": "crontab"
