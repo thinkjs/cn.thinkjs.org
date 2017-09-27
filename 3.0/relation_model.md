@@ -1424,6 +1424,22 @@ module.exports = class extends think.Model {
 
 更新前置操作。
 
+有时候希望提交了某值则更新，没有值为空的话就不更新的功能，那么可以通过这个方法来操作：
+
+```js
+module.exports = class extends think.Model {
+  beforeUpdate(data) {
+    for (const key in data) {
+      // 如果值为空则不更新
+      if(data[key] === '') {
+        delete data[key];
+      }
+    }
+    return data;
+  }
+}
+```
+
 #### model.afterUpdate(data)
 
 * `data` {Object} 要更新的数据
