@@ -14,7 +14,7 @@ MVC 模型中，控制器是用户请求的逻辑处理部分。比如：将用�
 const Base = require('./base.js');
 module.exports = class extends Base {
   indexAction(){
-    this.body = 'hello word!';
+    this.body = 'hello world!';
   }
 }
 ```
