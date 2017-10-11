@@ -958,6 +958,18 @@ ctx.post('name', value); //重新设置 POST 值
 ctx.post({name: 'value', name2: 'value2'}); //重新设置多个 POST 值
 ```
 
+有时候提交的数据是个复合的数据，这时候拿到的数据格式为下面的格式：
+
+```
+{ action: 'create',
+  'data[0][username]': '',
+  'data[0][nickname]': '',
+  'data[0][password]': '' 
+}
+```
+
+实际上我们希望 `data` 字段数据为数组，这时候可以使用 [think-qs](https://github.com/thinkjs/think-qs) 中间件来支持这种数据格式。
+
 #### ctx.file(name, value)
 
 * `name` {String} 参数名
