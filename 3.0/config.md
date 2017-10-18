@@ -66,12 +66,11 @@ module.exports = {
 
 系统启动时，会对配置合并，最终提供给开发者使用。具体流程为：
 
-* 加载 `[ThinkJS]/lib/config.js`
-* 加载 `[ThinkJS]/lib/config.[env].js`
+* 加载 `[ThinkJS]/lib/config/config.js`
 * 加载 `src/config/config.js`
 * 加载 `src/config/config.[env].js`
-* 加载 `[ThinkJS]/lib/adapter.js`
-* 加载 `[ThinkJS]/lib/adapter.[env].js`
+* 加载 `[ThinkJS]/lib/config/adapter.js`
+* 加载 `[ThinkJS]/lib/config/adapter.[env].js`
 * 加载 `src/config/adapter.js`
 * 加载 `src/config/adapter.[env].js`
 
