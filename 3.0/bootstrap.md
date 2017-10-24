@@ -68,7 +68,7 @@ const options = {
 module.exports = {
   // 只需要创建服务，不需要 listen
   createServer: function(callback){
-    https.createServer(options, callback);
+    return https.createServer(options, callback);
   }
 }
 ```
