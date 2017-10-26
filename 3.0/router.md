@@ -209,7 +209,15 @@ think.beforeStartServer(async () => {
 
 解析后的 controller 和 action 分别放在了 `ctx.controller` 和 `ctx.action` 上，有时候我们希望快速知道当前访问的路径最后解析的 controller 和 action 是什么，这时候可以借助 `debug` 来快速看到。
 
-```
+```bash
+# windows cmd
+set DEBUG=think-router && npm start
+
+# windows powershell
+$env:DEBUG="think-router"
+npm start
+
+# Linux and Mac
 DEBUG=think-router npm start
 ```
 
