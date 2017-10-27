@@ -18,7 +18,7 @@
 * `prefix` {Array} 默认去除的 pathname 前缀，默认值为 `[]`
 * `suffix` {Array} 默认去除的 pathname 后缀，默认值为 `['.html']`
 * `enableDefaultRouter` {Boolean} 在不匹配情况下是否使用默认路由解析，默认值为 `true`
-* `optimizeHomepageRouter` {Boolean} 是否对首页进行优化，默认值为 `true`（开启后如果访问地址是首页，那么不会进行自定义匹配）
+* `optimizeHomepageRouter` {Boolean} 是否对首页进行优化，默认值为 `true`（开启后如果访问地址是首页，那么不会进行自定义路由匹配）
 * `subdomainOffset` {Number} 子域名映射下的偏移量，默认值为 `2`
 * `subdomain` {Object|Array} 子域名映射列表，默认为 `{}`
 * `denyModules` {Array} 多模块项目下，禁止访问的模块列表，默认为 `[]`
