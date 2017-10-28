@@ -97,7 +97,7 @@ const sms = think.servie('aaa/sms');
 
 ### 扩展 Service 类的方法
 
-基类 think.Service 没有提供任何的方法，但实际中需要用到很多常用的方法，如：从远程接口获取数据的模块，处理完数据后将数据更新导数据库的操作。这个时候可以通过对应的扩展来加强 think.Service 类的功能，如：
+基类 think.Service 没有提供任何的方法，但实际中需要用到很多常用的方法，如：从远程接口获取数据的模块，处理完数据后将数据更新到数据库的操作。这个时候可以通过对应的扩展来加强 think.Service 类的功能，如：
 
 * [think-fetch](https://github.com/thinkjs/think-fetch) 模块让 think.Service 类有了 `fetch` 方法，这样很方便获取远程的数据
 * [think-model](https://github.com/thinkjs/think-model) 模块让 think.Service 类有了 `model` 方法，这样可以快速的操作数据库
