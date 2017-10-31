@@ -2134,3 +2134,20 @@ module.exports = class extends think.Controller {
   }
 }
 ```
+
+#### model.lock(lock)
+
+* `lock` {Boolean} 是否 lock
+* `return` {this}
+
+SELECT 时加锁，在 SELECT 语句后面加上 `FOR UPDATE`。
+
+```js
+module.exports = class extends think.Controller {
+  async indexAction() {
+    const user = this.model('user');
+    const data = await user.lock(true).where({id: 1}).find();
+    await user.where({id: data}).update({score: 1});
+  }
+}
+```
