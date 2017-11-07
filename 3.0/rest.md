@@ -79,7 +79,8 @@ module.exports = [
 这样在对应的 Action 里，可以通过 `this.get("postId")` 来获取文章的 id，然后放在过滤条件里处理即可。
 
 ```js
-module.exports = class extends think.Controller {
+const Rest = require('./rest.js');
+module.exports = class extends Rest {
   async getAction() {
     const postId = this.get('postId');
     const commentId = this.get('id');
