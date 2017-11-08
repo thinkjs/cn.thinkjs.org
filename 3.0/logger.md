@@ -126,7 +126,7 @@ module.exports = {
     - messagePassThrough
     - dummy
     - pattern
-    - 自定义输出类型可参考 [Adding your own layouts](https://nomiddlename.github.io/log4js-node/layouts.html#adding-your-own-layouts)
+    - 自定义输出类型可参考 [Adding your own layouts](https://log4js-node.github.io/log4js-node/layouts.html)
 - `pattern`：输出格式字符串，目前支持如下格式化参数
     - `%r` - `.toLocaleTimeString()` 输出的时间格式，例如 `下午5:13:04`。
     - `%p` - 日志等级
