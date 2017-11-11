@@ -83,6 +83,47 @@ exports.logger = {
 - `alwaysIncludePattern`：如果 `alwaysIncludePattern` 设置为 `true`，则初始文件直接会被命名为 `xx.log-2017-07-01`，然后隔天会生成 `xx.log-2017-07-02` 的新文件。
 - `layout`：定义日志输出的格式。
 
+### 高级配置
+
+如果以上配置都无法满足你的需求，你也可以直接提供 log4js 的配置。例如：
+
+```js
+const path = require('path');
+const {Basic} = require('think-logger3');
+
+exports.logger = {
+  type: 'advanced',
+  advanced: {
+    handle: Basic,
+    appenders: {
+      everything: { 
+        type: 'file', 
+        filename: path.join(think.ROOT_PATH, 'logs/all-the-logs.log') 
+      },
+      emergencies: {  
+        type: 'file', 
+        filename: path.join(think.ROOT_PATH, 'logs/oh-no-not-again.log') 
+      },
+      'just-errors': { 
+        type: 'logLevelFilter', 
+        appender: 'emergencies', 
+        level: 'error' 
+      }
+    },
+    categories: {
+      default: { 
+        appenders: ['just-errors', 'everything'], 
+        level: 'debug' 
+      }
+    }
+  }
+};
+```
+
+该配置表示将 `error` 级别以上的日志输出到 `oh-no-not-again.log` 文件，同时还将所有的日志输出到`all-the-logs.log` 文件中。除了 `hanle` 属性，所有的配置都和 log4js 的一样，你可以在 [这里](https://log4js-node.github.io/log4js-node/api.html#configuration-object) 查看详细的配置项。
+
+另外需要注意的是，考虑到分类的用处比较少，我们不支持自定义日志分类，所以在 `categories` 中配置其它分类是无效的，但是默认分类需要存在。
+
 
 ### Level
 
@@ -127,7 +168,7 @@ module.exports = {
     - dummy
     - pattern
     - 自定义输出类型可参考 [Adding your own layouts](https://log4js-node.github.io/log4js-node/layouts.html)
-- `pattern`：输出格式字符串，目前支持如下格式化参数
+    - `pattern`：输出格式字符串，目前支持如下格式化参数
     - `%r` - `.toLocaleTimeString()` 输出的时间格式，例如 `下午5:13:04`。
     - `%p` - 日志等级
     - `%h` - 机器名称
@@ -147,9 +188,8 @@ module.exports = {
 module.exports = class {
   /**
    * @param {Object}  config  {}  配置传入的参数
-   * @param {Boolean} clusterMode true  是否是多进程模式
    */
-  constructor(config, clusterMode) {
+  constructor(config) {
 
   }
 
