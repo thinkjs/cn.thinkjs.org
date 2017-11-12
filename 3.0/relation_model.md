@@ -1981,7 +1981,7 @@ module.exports = class extends think.Model {
 * `...args` {Array} 解析的数据
 * `return` {Object}
 
-解析 SQL 语句，将 SQL 语句中的 `__TABLENAME__` 解析为对应的表名。通过 [util.format](https://nodejs.org/api/util.html#util_util_format_format_args) 将 args 数据解析导 sql 中。
+解析 SQL 语句，将 SQL 语句中的 `__TABLENAME__` 解析为对应的表名。通过 [util.format](https://nodejs.org/api/util.html#util_util_format_format_args) 将 args 数据解析到 sql 中。
 
 ```js
 module.exports = class extends think.Model {
