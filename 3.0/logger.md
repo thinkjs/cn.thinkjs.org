@@ -120,7 +120,7 @@ exports.logger = {
 };
 ```
 
-该配置表示将 `error` 级别以上的日志输出到 `oh-no-not-again.log` 文件，同时还将所有的日志输出到`all-the-logs.log` 文件中。除了 `hanle` 属性，所有的配置都和 log4js 的一样，你可以在 [这里](https://log4js-node.github.io/log4js-node/api.html#configuration-object) 查看详细的配置项。
+该配置表示将 `error` 级别以上的日志输出到 `oh-no-not-again.log` 文件，同时还将所有的日志输出到`all-the-logs.log` 文件中。除了 `handle` 属性，所有的配置都和 log4js 的一样，你可以在 [这里](https://log4js-node.github.io/log4js-node/api.html#configuration-object) 查看详细的配置项。
 
 另外需要注意的是，考虑到分类的用处比较少，我们不支持自定义日志分类，所以在 `categories` 中配置其它分类是无效的，但是默认分类需要存在。
 
