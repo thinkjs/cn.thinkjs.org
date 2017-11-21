@@ -1016,7 +1016,18 @@ module.exports = class extends think.Controller {
 }
 ```
 
+如果上传多个同名的文件时（如：input 标签里设置了 multiple 属性），默认只会获取到一个。如果想获取多个的话，需要在 `src/config/middleware.js` 文件里 `payload` 中间件添加 `multiples` 属性，如：
 
+```js
+{
+  handle: 'payload',
+  options: {
+    multiples: true
+  }
+}
+```
+
+此时通过 `this.file('name')` 获取的值为数组，里面包含了多个上传的文件。
 
 #### ctx.cookie(name, value, options)
 
