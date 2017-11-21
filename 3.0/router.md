@@ -75,14 +75,14 @@ module.exports = [
 {
   subdomainOffset: 2, // 域名偏移量
   subdomain: { // 子域名映射详细配置
-    'aaa.bbb': 'aaa'
+    'bbb,aaa': 'aaa'
   }
 }
 ```
 
-在做子域名映射时，需要解析出当前域名的子域名具体是什么？这时候就需要用到域名偏移量  `subdomainOffset` 了，该配置默认值为 2， 例如：对于域名 aaa.bbb.example.com， 解析后的子域名列表为 `["aaa", "bbb"]`, 当域名偏移量为 3 时，解析后的子域名列表为 `["aaa"]`，解析后的值保存在 `ctx.subdomains` 属性上。如果当前域名是个 IP，那么解析后的 ctx.subdomains 始终为空数组。
+在做子域名映射时，需要解析出当前域名的子域名具体是什么？这时候就需要用到域名偏移量  `subdomainOffset` 了，该配置默认值为 2， 例如：对于域名 aaa.bbb.example.com， 解析后的子域名列表为 `["bbb", "aaa"]`, 当域名偏移量为 3 时，解析后的子域名列表为 `["aaa"]`，解析后的值保存在 `ctx.subdomains` 属性上。如果当前域名是个 IP，那么解析后的 ctx.subdomains 始终为空数组。
 
-在进行子域名匹配时，会将 `ctx.subdomains` 转为字符串（`join(",")`）然后跟 `subdomain` 配置进行匹配。如果匹配到了 `subdomain` 里的配置，那么会将对应的值前缀补充到 `pathname` 值上。如：当访问 `http://aaa.bbb.example.com/api_lib/inbox/123`，由于配置了 `'aaa.bbb': 'aaa'`, 那么得到的 pathname 将为 `/aaa/api_lib/inbox/123`，匹配顺序为按配置依次向后匹配，如果匹配到了，那么会终止后续的匹配。
+在进行子域名匹配时，会将 `ctx.subdomains` 转为字符串（`join(",")`）然后跟 `subdomain` 配置进行匹配。如果匹配到了 `subdomain` 里的配置，那么会将对应的值前缀补充到 `pathname` 值上。如：当访问 `http://aaa.bbb.example.com/api_lib/inbox/123`，由于配置了 `'bbb,aaa': 'aaa'`, 那么得到的 pathname 将为 `/aaa/api_lib/inbox/123`，匹配顺序为按配置依次向后匹配，如果匹配到了，那么会终止后续的匹配。
 
 如果 `subdomain` 配置是一个数组，那么会自动将数组转化为对象，方便后续进行匹配。
 
@@ -195,11 +195,11 @@ module.exporst = [
 think.beforeStartServer(async () => {
   const config = think.model('config');
   // 将所有的自定义路由保存在字段为 router 的数据上
-  const data = await config.where({key: 'router'}).find(); 
+  const data = await config.where({key: 'router'}).find();
   const routers = JSON.parse(data.value);
   // 触发 routerChange 事件，将新的自定义路由设置到 think.app.routers 对象上
   // routers 格式和自定义路由格式相同，二维数组
-  think.app.emit('routerChange', routers); 
+  think.app.emit('routerChange', routers);
 })
 
 ```
