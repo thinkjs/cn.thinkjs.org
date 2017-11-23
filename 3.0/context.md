@@ -948,7 +948,7 @@ ctx.param({name: 'value', name2: 'value2'}); //重新设置多个参数值
 * `value` {Mixed} 参数值
 * `return` {Mixed}
 
-获取、设置 POST 数据。
+获取、设置 POST 数据。请求类型为 `POST`, `PUT`, `DELETE`, `PATCH`, `LINK`, `UNLINK` 时才可以通过 post 方法获取提交的数据。
 
 ```js
 ctx.post('name'); //获取 POST 值，如果不存在则返回 undefined

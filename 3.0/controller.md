@@ -96,6 +96,8 @@ module.exports = class extends think.Controller {
 }
 ```
 
+注：此方法可能会在后续的版本中废弃，如果有类似需求，可以通过中间件类完成。
+
 ### 魔术方法 __call
 
 当解析后的 url 对应的控制器存在，但 Action 不存在时，会试图调用控制器下的魔术方法 `__call`。这里可以对不存在的方法进行统一处理。
@@ -158,7 +160,16 @@ module.exports = class extends think.Controller {
 ### 获取参数、表单值
 
 对于 URL 上传递的参数或者表单上传的值，框架直接做了解析，可以直接通过对应的方法获取。
-对于 URL 上传递的参数，在 Action 中可以通过 [get](/doc/3.0/controller.html#toc-b4e) 方法获取。对于表单提交的字段或者文件可以通过 [post](/doc/3.0/controller.html#toc-3d4) 和 [file](/doc/3.0/controller.html#toc-88b) 方法获取。表单数据解析是通过中间件 [think-payload](https://github.com/thinkjs/think-payload) 来完成的，解析后的数据放在 `ctx.request.body` 对象上，最后包装成 post 和 file 方法供使用。
+对于 URL 上传递的参数，在 Action 中可以通过 [get](/doc/3.0/controller.html#toc-b4e) 方法获取。当请求是 `POST`, `PUT`, `DELETE`, `PATCH`, `LINK`, `UNLINK` 时表单提交的字段或者文件可以通过 [post](/doc/3.0/controller.html#toc-3d4) 和 [file](/doc/3.0/controller.html#toc-88b) 方法获取。表单数据解析是通过中间件 [think-payload](https://github.com/thinkjs/think-payload) 来完成的，解析后的数据放在 `ctx.request.body` 对象上，最后包装成 post 和 file 方法供使用。
+
+对于表单数据（文本和文件）的获取，think-payload 中间件会根据请求的 Content-Type 来解析的，默认支持有下面的方式：
+
+* application/json  - 上传的数据格式为 JSON 格式
+* application/x-www-form-urlencoded - 普通的表单数据提交
+* multipart/form-data - 带有文件的表单数据提交
+* text/xml - XML 格式的数据
+
+如果数据格式和 Content-Type 不匹配，那么可能无法获取到对应的数据。
 
 ### 透传数据
 
@@ -195,6 +206,14 @@ module.exports = class extends think.Controller {
 
 #### async/await 和 super 同时使用为什么报错？
 
+```js
+module.exports = class extends think.Controller {
+  async __before() {
+    await super.__before();
+  }
+}
+```
+
 目前 Babel 的稳定版还是 `6.x`，这个版本下如果同时使用了 async/await 和 super，那么编译后的代码有问题导致报错，需要等待 7.0 的版本，具体见 <https://github.com/babel/babel/issues/3930>。
 
 目前的解决办法是，不要 async/await 和 super 同时使用，如果必须有 super 调用，那么就直接用 Promise 的方式。如：
@@ -209,6 +228,9 @@ module.exports = class extends Base {
   }
 }
 ```
+
+当然如果项目不需要 Babel 编译，那么就可以直接使用。
+
 
 ### API
 
