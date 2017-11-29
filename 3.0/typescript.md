@@ -45,8 +45,8 @@ import SomeModel from '../model/somemodel';
 
 export default class extends think.Controller {
   indexAction() {
-    const serviceInstance: SomeService = think.service('someservice');
-    const modelInstance: SomeModel = think.model('somemodel');
+    const serviceInstance = think.service('someservice') as SomeService;
+    const modelInstance = think.model('somemodel') as SomeModel;
   }
 }
 ```
