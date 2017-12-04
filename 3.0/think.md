@@ -356,7 +356,7 @@ function test() {
   setTimeout(function() {
     defer.reslove('1');
   },1000)
-  return defer
+  return defer.promise
 }
 
 test().then((result)=>{
