@@ -294,9 +294,10 @@ exports.model = {
 }
 ```
 
-#### model.where(where)
+#### model.where(query, [projection])
 
-* `where` {String} 设置查询条件
+* `query` {Object} 设置查询条件，可参考 `MongoDB` 的 [Query Selectors](https://docs.mongodb.com/manual/reference/operator/query/#query-selectors)
+* `projection` {Object} 筛选返回字段，可参考 `MongoDB` 的 [Projection](https://docs.mongodb.com/manual/reference/method/db.collection.find/#find-projection)
 * `return` {this}
 
 设置查询字段，设置后会赋值到 `this.options.where` 属性上，便于后续解析。
