@@ -207,7 +207,7 @@ exports.websocket = {
   // ...
   socketio: {
     // ...
-    adapter: redis,
+    adapter: redis({ host: 'localhost', port: 6379 }),
   }
 }
 ```
