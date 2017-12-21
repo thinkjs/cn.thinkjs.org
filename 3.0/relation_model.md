@@ -561,7 +561,7 @@ module.exports = class extends think.Model {
   一对一、一对多、多对多下默认值为当前模型的主键，如：id
   一对一（属于）下默认值为关联表名称和 id 的组合，如：cate_id
   ```
-* `fKey` 关联表与只对应的 key
+* `fKey` 关联表与之对应的 key
 
   ```
   一对一、一对多、多对多下默认值为关联表名称和 id 的组合，如：cate_id
