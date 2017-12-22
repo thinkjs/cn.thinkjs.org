@@ -13,7 +13,7 @@ thinkjs new project-name typescript
 ```
 
 ### 引入 Extend 模块定义
-用 think-cli 生成 TypeScript 项目模板之后（下文统称项目模板），会自动生成 `src/index.ts` 文件, 在这里需要配置项目用到了那些 Extend 模块，这样 TS 的智能感知才会生效。
+用 think-cli 生成 TypeScript 项目模板之后（下文统称项目模板），会自动生成 `src/index.ts` 文件, 在这里需要配置项目用到了哪些 Extend 模块，这样 TS 的智能感知才会生效。
 ``` js
 import * as ThinkJS from '../node_modules/thinkjs';
 
