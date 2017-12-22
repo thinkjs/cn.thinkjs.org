@@ -256,7 +256,7 @@ think.isNumber(1); // true
 
 * `obj` {any}
 
-判断一个输入是否为 Object，通过 Object.prototype.toString.call(obj) 是否为 `[object Object]` 判断
+判断一个输入是否为 Object，通过 `Object.prototype.toString.call(obj)` 是否为 `[object Object]` 判断
 
 ```js
 think.isObject({}); // true
