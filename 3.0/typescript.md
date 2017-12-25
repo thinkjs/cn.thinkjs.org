@@ -52,7 +52,7 @@ export default class extends think.Controller {
 ```
 
 ### TSLint
-TypeScript 的项目编写风格与 JavaScript 的非常接近，只要进过一段时间的上手就能适应。我们还基于 ThinkJS 项目的特点配置了一套 TSLint 的规则包含在项目模板里。使用 TSLint 能更快速的在团队里实施规范，并保护代码。
+TypeScript 的项目编写风格与 JavaScript 的非常接近，只要经过一段时间的上手就能适应。我们还基于 ThinkJS 项目的特点配置了一套 TSLint 的规则包含在项目模板里。使用 TSLint 能更快速的在团队里实施规范，并保护代码。
 
 ### 编译部署
 在开发环境可以使用 `think-typescript` 编译，还支持 `tsc` 直接编译, 编译后的代码和 JS 版本是通用的。
