@@ -275,7 +275,7 @@ const user2 = think.model('admin/user'); // 实例化后台的 user 模型
 
 ### 设置 schema
 
-可以通过 `schema` 属性设置数据表的主键，具体见 [model.schema](/doc/3.0/relation_model.html#toc-2d3)。
+可以通过 `schema` 属性设置数据表结构，具体见 [model.schema](/doc/3.0/relation_model.html#toc-2d3)。
 
 ### 关联查询
 
@@ -443,7 +443,7 @@ exports.model = {
 
 #### 数据库的连接数最大连接数是多少？
 
-假设项目有二个集群，每个集群有十台机器，机器机器开启了四个 worker，数据库配置的连接池里的连接数为五，那么总体的最大连接数为：`2 * 10 * 4 * 5 = 400`
+假设项目有二个集群，每个集群有十台机器，每台机器开启了四个 worker，数据库配置的连接池里的连接数为五，那么总体的最大连接数为：`2 * 10 * 4 * 5 = 400`
 
 #### 如何查看相关调试信息？
 
