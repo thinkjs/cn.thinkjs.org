@@ -1424,7 +1424,7 @@ module.exports = class extends think.Model {
 
 更新前置操作。
 
-有时候希望提交了某值则更新，没有值为空的话就不更新的功能，那么可以通过这个方法来操作：
+有时候希望提交了某值则更新，如果值为空的话就不更新的功能，那么可以通过这个方法来操作：
 
 ```js
 module.exports = class extends think.Model {
@@ -1455,7 +1455,7 @@ module.exports = class extends think.Model {
 
 #### model.afterSelect(data)
 
-* `data` [Array] 查询的数据数据
+* `data` [Array] 查询的数据
 * `return` {Array | Promise}
 
 `select` 查询后置操作。
@@ -1678,7 +1678,7 @@ module.exports = class extends think.Model {
 #### model.decrement(field, step)
 
 * `field` {String} 字段名
-* `step` {Number} 增加的值，默认为 1
+* `step` {Number} 减少的值，默认为 1
 * `return` {Promise}
 
 字段值减少。
