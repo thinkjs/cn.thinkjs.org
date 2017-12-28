@@ -1,6 +1,6 @@
 ## WebSocket
 
-对于 WebSocket 目前 ThinkJS 支持了 `socket.io`, 并对其进行了一些简单的包装，后续会增加 [socketjs](https://github.com/sockjs/sockjs-node), [ws](https://github.com/websockets/ws) 库的支持。
+对于 WebSocket 目前 ThinkJS 支持了 `socket.io`、`ws` 对其进行了一些简单的包装。
 
 ### 开启 WebSocket
 
