@@ -86,7 +86,7 @@ module.exports = class extends think.Controller {
 
 ```js
 this.ctx.res.once('finish', () => {
-  this.flush(); // 在请求时将 session flush 到存储容器中
+  // 在请求结束时将 session flush 到存储容器中
 });
 ```
 
