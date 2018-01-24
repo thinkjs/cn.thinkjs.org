@@ -34,7 +34,10 @@ exports.model = {
     user: '',
     password: '',
     database: '', // 数据库名称
-    options: ''
+    options: {
+      replicaSet: 'mgset-3074013',
+      authSource: 'admin'
+    }
   }
 }
 ```
@@ -54,7 +57,10 @@ exports.model = {
     user: '',
     password: '',
     database: '', // 数据库名称
-    options: ''
+    options: {
+      replicaSet: 'mgset-3074013',
+      authSource: 'admin'
+    }
   }
 }
 ```

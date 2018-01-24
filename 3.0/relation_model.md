@@ -275,7 +275,7 @@ const user2 = think.model('admin/user'); // 实例化后台的 user 模型
 
 ### 设置 schema
 
-可以通过 `schema` 属性设置数据表的主键，具体见 [model.schema](/doc/3.0/relation_model.html#toc-2d3)。
+可以通过 `schema` 属性设置数据表结构，具体见 [model.schema](/doc/3.0/relation_model.html#toc-2d3)。
 
 ### 关联查询
 
@@ -443,7 +443,7 @@ exports.model = {
 
 #### 数据库的连接数最大连接数是多少？
 
-假设项目有二个集群，每个集群有十台机器，机器机器开启了四个 worker，数据库配置的连接池里的连接数为五，那么总体的最大连接数为：`2 * 10 * 4 * 5 = 400`
+假设项目有二个集群，每个集群有十台机器，每台机器开启了四个 worker，数据库配置的连接池里的连接数为五，那么总体的最大连接数为：`2 * 10 * 4 * 5 = 400`
 
 #### 如何查看相关调试信息？
 
@@ -561,7 +561,7 @@ module.exports = class extends think.Model {
   一对一、一对多、多对多下默认值为当前模型的主键，如：id
   一对一（属于）下默认值为关联表名称和 id 的组合，如：cate_id
   ```
-* `fKey` 关联表与只对应的 key
+* `fKey` 关联表与之对应的 key
 
   ```
   一对一、一对多、多对多下默认值为关联表名称和 id 的组合，如：cate_id
@@ -1424,7 +1424,7 @@ module.exports = class extends think.Model {
 
 更新前置操作。
 
-有时候希望提交了某值则更新，没有值为空的话就不更新的功能，那么可以通过这个方法来操作：
+有时候希望提交了某值则更新，如果值为空的话就不更新的功能，那么可以通过这个方法来操作：
 
 ```js
 module.exports = class extends think.Model {
@@ -1455,7 +1455,7 @@ module.exports = class extends think.Model {
 
 #### model.afterSelect(data)
 
-* `data` [Array] 查询的数据数据
+* `data` [Array] 查询的数据
 * `return` {Array | Promise}
 
 `select` 查询后置操作。
@@ -1678,7 +1678,7 @@ module.exports = class extends think.Model {
 #### model.decrement(field, step)
 
 * `field` {String} 字段名
-* `step` {Number} 增加的值，默认为 1
+* `step` {Number} 减少的值，默认为 1
 * `return` {Promise}
 
 字段值减少。

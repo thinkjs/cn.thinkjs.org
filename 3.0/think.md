@@ -180,49 +180,49 @@ think.isNumber(1); // true
 
 * `str` {any}
 
-判断输入是是否是字符串
+判断输入是否是字符串
 
 #### think.isSymbol(any)
 
 * `any` {any}
 
-判断输入是是否是 Symbol 类型
+判断输入是否是 Symbol 类型
 
 #### think.isUndefined(any)
 
 * `any` {any}
 
-判断输入是是否是 undefined，也可以直接通过 `xxx === undefined` 来判断。
+判断输入是否是 undefined，也可以直接通过 `xxx === undefined` 来判断。
 
 #### think.isRegExp(reg)
 
 * `reg` {any}
 
-判断输入是是否是正则对象
+判断输入是否是正则对象
 
 #### think.isDate(date)
 
 * `date` {any}
 
-判断输入是是否是日期对象
+判断输入是否是日期对象
 
 #### think.isError(error)
 
 * `error` {any}
 
-判断输入是是否是Error类型
+判断输入是否是Error类型
 
 #### think.isFunction(any)
 
 * `any` {any}
 
-判断输入是是否是函数类型
+判断输入是否是函数类型
 
 #### think.isPrimitive(any)
 
 * `any` {any}
 
-判断输入是是否是原始类型，包含：`null`、`string`、`boolean`、`number`、`symbol`、`undefined`。
+判断输入是否是原始类型，包含：`null`、`string`、`boolean`、`number`、`symbol`、`undefined`。
 
 #### think.isIP(ip)
 
@@ -256,7 +256,7 @@ think.isNumber(1); // true
 
 * `obj` {any}
 
-判断一个输入是否为 Object，通过 Object.prototype.toString.call(obj) 是否为 `[object Object]` 判断
+判断一个输入是否为 Object，通过 `Object.prototype.toString.call(obj)` 是否为 `[object Object]` 判断
 
 ```js
 think.isObject({}); // true
