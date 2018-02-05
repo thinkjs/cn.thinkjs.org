@@ -235,15 +235,6 @@ ctx.query = { next: '/login' }
 
 如果存在则获取主机名。当 app.proxy 为 true 时，使用 X-Forwarded-Host 的值，否则使用  Host 的值。
 
-#### ctx.type
-
-获取请求头部 Content-Type 的值，不包括字符集。
-
-```js
-const ct = ctx.type
-// => "image/png"
-```
-
 #### ctx.charset
 
 如果存在则为请求的字符集，否则为 undefined：
