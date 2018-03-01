@@ -86,13 +86,13 @@ module.exports = class extends think.Controller {
 
 ```js
 this.ctx.res.once('finish', () => {
-  this.flush(); // 在请求时将 session flush 导存储容器中
+  // 在请求结束时将 session flush 到存储容器中
 });
 ```
 
 #### 如何获取 session 对应 cookie 的值？
 
-session 对应 cookie 的值是不能手工设置的，而是框架自动生成，生成方式为 [think.uuid](/doc/3.0/think.html#toc-9ac)。后续 Action 中可以通过 `this.cookie('thinkjs')` （thinkjs 为 session 对应 cookie 的字段名称）。
+session 对应 cookie 的值是不能手工设置的，而是框架自动生成，生成方式为 [think.uuid](/doc/3.0/think.html#toc-9ac)。后续 Action 中可以通过 `this.cookie('thinkjs')`获取到该 cookie （thinkjs 为 session 对应 cookie 的字段名称）。
 
 #### 如何限制同一个帐号在不同的端登录？
 

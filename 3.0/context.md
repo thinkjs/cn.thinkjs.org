@@ -168,17 +168,16 @@ ctx.method = 'COMMAND';
 
 #### ctx.origin
 
-Get origin of URL, include protocol and host.
+获取请求源 URL，包括协议和主机。
 
 ```js
 ctx.origin
 // => http://example.com
 ```
 
-
 #### ctx.href
 
-Get full request URL, include protocol, host and url.
+获取请求完整的 URL，包括协议、主机和 url。
 
 ```js
 ctx.href
@@ -187,17 +186,17 @@ ctx.href
 
 #### ctx.path
 
-Get request pathname.
+获取请求路径名。
 
 #### ctx.path=
 
-Set request pathname and retain query-string when present.
+设置请求路径名，如果查询参数存在则保留。
 
 #### ctx.query
 
-Get parsed query-string, returning an empty object when no query-string is present. Note that this getter does not support nested parsing.
+获取解析后的查询参数，如果不存在查询参数则返回一个空对象。注意这个方法不支持嵌套参数的解析。
 
-For example "color=blue&size=small":
+例如 `"color=blue&size=small"`
 
 ```js
 {
@@ -207,38 +206,38 @@ For example "color=blue&size=small":
 ```
 #### ctx.query=
 
-Set query-string to the given object. Note that this setter does not support nested objects.
+通过给定的对象设置查询参数。注意这个赋值方法不支持嵌套对象。
 
 ```js
 ctx.query = { next: '/login' }
 ```
 #### ctx.querystring
 
-Get raw query string void of ?.
+获取原始查询字符串，不带问号。
 
 #### ctx.querystring=
 
-Set raw query string.
+设置原始查询字符串。
 
 #### ctx.search
 
-Get raw query string with the ?.
+获取原始查询字符串，带问号。
 
 #### ctx.search=
 
-Set raw query string.
+设置原始查询字符串。
 
 #### ctx.host
 
-Get host (hostname:port) when present. Supports X-Forwarded-Host when app.proxy is true, otherwise Host is used.
+如果存在则获取主机（hostname:port）。当 app.proxy 为 true 时，使用 X-Forwarded-Host 的值，否则使用 Host 的值。
 
 #### ctx.hostname
 
-Get hostname when present. Supports X-Forwarded-Host when app.proxy is true, otherwise Host is used.
+如果存在则获取主机名。当 app.proxy 为 true 时，使用 X-Forwarded-Host 的值，否则使用  Host 的值。
 
 #### ctx.type
 
-Get request Content-Type void of parameters such as "charset".
+获取请求头部 Content-Type 的值，不包括字符集。
 
 ```js
 const ct = ctx.type
@@ -247,7 +246,7 @@ const ct = ctx.type
 
 #### ctx.charset
 
-Get request charset when present, or undefined:
+如果存在则为请求的字符集，否则为 undefined：
 
 ```js
 ctx.charset
@@ -255,7 +254,7 @@ ctx.charset
 ```
 #### ctx.fresh
 
-Check if a request cache is "fresh", aka the contents have not changed. This method is for cache negotiation between If-None-Match / ETag, and If-Modified-Since and Last-Modified. It should be referenced after setting one or more of these response headers.
+检查请求的缓存是否可用，即内容没有发生改变。此方法用来验证协商缓存 `If-None-Match / ETag`、`If-Modified-Since` 和 `Last-Modified`。此方法应该在设置了以上一个或多个响应头部的时候调用。
 
 ```js
 // freshness check requires status 20x or 304
@@ -274,11 +273,11 @@ ctx.body = await db.find('something');
 ```
 #### ctx.stale
 
-Inverse of ctx.fresh.
+和 ctx.fresh 相反。
 
 #### ctx.socket
 
-Return the request socket.
+获取请求的套接字实体。
 
 #### ctx.protocol
 
@@ -286,9 +285,9 @@ Return the request socket.
 
 具体的判断策略为：如果 `req.socket.encrypted` 为真，那么直接返回 `https`，否则如果配置了 `app.proxy` 为 true，那么从 `X-Forwarded-Proto` header 里获取，默认值为 `http`。
 
-这么做是因为有时候并不会让 Node.js 直接对外提供服务，而是在前面用 web server（如：nginx）挡一层，由 web server 来提供 HTTP(S) 服务，web server 与 Node.js 之间始终用 HTTP 交互。
+这么做是因为有时候并不会让 Node.js 直接对外提供服务，而是在前面用 web server（如：nginx）做反向代理，由 web server 来提供 HTTP(S) 服务，web server 与 Node.js 之间始终用 HTTP 交互。
 
-这时候 Node.js 拿到的协议始终都是 `http`，真实的协议只有 web server 知道，所以要让 Node.js 拿到真实的协议时，就需要 webserver 与 Node.js 定义特殊的字段来获取，推荐的自定义 header 为 `X-Forwarded-Proto`。为了安全性，只有设置了 `app.proxy` 为 true 是才会这样获取（`production.js` 里默认配置了为 true）。
+这时候 Node.js 拿到的协议始终都是 `http`，真实的协议只有 web server 知道，所以要让 Node.js 拿到真实的协议时，就需要 web server 与 Node.js 定义特殊的字段来获取，推荐的自定义 header 为 `X-Forwarded-Proto`。为了安全性，只有设置了 `app.proxy` 为 true 是才会这样获取（`production.js` 里默认配置了为 true）。
 
 ```sh
 ssl on;
@@ -312,31 +311,28 @@ location = /index.js {
 
 #### ctx.secure
 
-Shorthand for ctx.protocol == "https" to check if a request was issued via TLS.
-
+ctx.protocol == 'https' 的包装方法，检查该请求是否使用TLS隧道。
 
 #### ctx.ip
 
-Request remote address. Supports X-Forwarded-For when app.proxy is true.
-
+获取客户端请求的地址。当 app.proxy 为 true 时使用 X-Forwarded-For 的值。
 
 #### ctx.ips
 
-When X-Forwarded-For is present and app.proxy is enabled an array of these ips is returned, ordered from upstream -> downstream. When disabled an empty array is returned.
+当 X-Forwarded-For 存在并启用 app.proxy 时，返回回一个ip数组，这个数组是按上游到下游的顺序排序的。如果禁用则返回空数组。
 
 
 #### ctx.subdomains
 
-Return subdomains as an array.
+返回子域名数组。
 
-Subdomains are the dot-separated parts of the host before the main domain of the app. By default, the domain of the app is assumed to be the last two parts of the host. This can be changed by setting app.subdomainOffset.
+子域名是主机主域名之前以点符号进行分割的部分。一个应用的默认的域名是由主机后面的两部分组成的。通过 app.subdomainOffset 可以改变默认设置。
 
-For example, if the domain is "tobi.ferrets.example.com": If app.subdomainOffset is not set, ctx.subdomains is ["ferrets", "tobi"]. If app.subdomainOffset is 3, ctx.subdomains is ["tobi"].
-
+一个简单的例子，假如有一个域名是 `tobi.ferrets.example.com`, 如果 app.subdomainOffset 没有设置，ctx.subdomains 的值为 ["ferrets", "tobi"]。如果 app.subdomainOffset 设置为3，ctx.subdomains 的值为 ["tobi"]。
 
 #### ctx.is(...types)
 
-Check if the incoming request contains the "Content-Type" header field, and it contains any of the give mime types. If there is no request body, null is returned. If there is no content type, or the match fails false is returned. Otherwise, it returns the matching content-type.
+检查此次请求头部`Content-Typ` 字段是否包含给定的 mime 类型。如果没有请求体，则返回 null。如果没有内容类型或者没有匹配到给定的 mime 类型则返回 false。如果匹配到了就返回相应的 content-type。
 
 ```js
 // With Content-Type: text/html; charset=utf-8
@@ -352,7 +348,7 @@ ctx.is('html', 'application/*'); // => 'application/json'
 ctx.is('html'); // => false
 ```
 
-For example if you want to ensure that only images are sent to a given route:
+一个例子，如果你想让一个路由只接受图片，可以这样编码：
 
 ```js
 if (ctx.is('image/*')) {
@@ -363,7 +359,7 @@ if (ctx.is('image/*')) {
 ```
 #### ctx.accepts(types)
 
-Check if the given type(s) is acceptable, returning the best match when true, otherwise false. The type value may be one or more mime type string such as "application/json", the extension name such as "json", or an array ["json", "html", "text/plain"].
+检查是否支持给定的类型，如果支持则返回优先级最高的的类型，否则返回false。类型的值可能是一个或者多个 mime 类型字符串，例如："application/json"、文件扩展名为 "json" 或者一个数组 ["json", "html", "text/plain"]。
 
 ```js
 // Accept: text/html
@@ -397,7 +393,7 @@ ctx.accepts('json', 'html');
 // => "json"
 ```
 
-You may call ctx.accepts() as many times as you like, or use a switch:
+可以多次调用 ctx.accepts() 方法，或者使用分支语句：
 
 ```js
 switch (ctx.accepts('json', 'html', 'text')) {
@@ -409,7 +405,7 @@ switch (ctx.accepts('json', 'html', 'text')) {
 ```
 #### ctx.acceptsEncodings(encodings)
 
-Check if encodings are acceptable, returning the best match when true, otherwise false. Note that you should include identity as one of the encodings!
+检查是否支持编码，如果支持返回优先级最高的编码，否则返回 false。注意你应该将 identity 作为编码之一。
 
 ```js
 // Accept-Encoding: gzip
@@ -420,18 +416,18 @@ ctx.acceptsEncodings(['gzip', 'deflate', 'identity']);
 // => "gzip"
 ```
 
-When no arguments are given all accepted encodings are returned as an array:
+如果没有给参数则返回所有支持的编码数组：
 
 ```js
 // Accept-Encoding: gzip, deflate
 ctx.acceptsEncodings();
 // => ["gzip", "deflate", "identity"]
 ```
-Note that the identity encoding (which means no encoding) could be unacceptable if the client explicitly sends identity;q=0. Although this is an edge case, you should still handle the case where this method returns false.
+注意：如果客户端明确指定 `identity;q=0`，就不支持了 identity 编码（实际上就是不编码），此时这个方法将返回 false，你需要处理这个极端情况。
 
 #### ctx.acceptsCharsets(charsets)
 
-Check if charsets are acceptable, returning the best match when true, otherwise false.
+检查是否支持字符集，如果支持则返回优先级最高的字符集，否则返回 false。
 
 ```js
 // Accept-Charset: utf-8, iso-8859-1;q=0.2, utf-7;q=0.5
@@ -442,7 +438,7 @@ ctx.acceptsCharsets(['utf-7', 'utf-8']);
 // => "utf-8"
 ```
 
-When no arguments are given all accepted charsets are returned as an array:
+如果没有参数则返回所有支持字符集的数组，按优先级排序。
 
 ```js
 // Accept-Charset: utf-8, iso-8859-1;q=0.2, utf-7;q=0.5
@@ -451,7 +447,7 @@ ctx.acceptsCharsets();
 ```
 #### ctx.acceptsLanguages(langs)
 
-Check if langs are acceptable, returning the best match when true, otherwise false.
+检查是否支持语言，如果支持返回优先级最高的语言，否则返回 false。
 
 ```js
 // Accept-Language: en;q=0.8, es, pt
@@ -462,7 +458,7 @@ ctx.acceptsLanguages(['en', 'es']);
 // => "es"
 ```
 
-When no arguments are given all accepted languages are returned as an array:
+如果没有参数则返回所有支持语言的数组，按优先级排序。
 
 ```js
 // Accept-Language: en;q=0.8, es, pt
@@ -472,7 +468,7 @@ ctx.acceptsLanguages();
 
 #### ctx.get(field)
 
-Return request header.
+返回请求头部指定字段的值。
 
 ```js
 const host = ctx.get('host');
@@ -480,29 +476,29 @@ const host = ctx.get('host');
 
 #### ctx.body
 
-Get response body.
+获取响应体。
 
 #### ctx.body=
 
-Set response body to one of the following:
+设置响应体，支持以下几种：
 
-* string written
+* 字符串
 
-  The Content-Type is defaulted to text/html or text/plain, both with a default charset of utf-8. The Content-Length field is also set.
+  Content-Type 默认为 text/html 或者 text/plain，这两种的字符集都是 utf-8，同时会设置 Content-Length 字段。
 
-* Buffer written
+* Buffer
 
-  The Content-Type is defaulted to application/octet-stream, and Content-Length is also set.
+  Content-Type 默认为 application/octet-stream，也会设置 Content-Length 字段。
 
-* Stream piped
+* 管道流
 
-  The Content-Type is defaulted to application/octet-stream.
+  Content-Type 默认为 application/octet-stream。
 
-  Whenever a stream is set as the response body, .onerror is automatically added as a listener to the error event to catch any errors. In addition, whenever the request is closed (even prematurely), the stream is destroyed. If you do not want these two features, do not set the stream as the body directly. For example, you may not want this when setting the body as an HTTP stream in a proxy as it would destroy the underlying connection.
+  当响应体为流时，会自动添加一个 onerror 的异常事件监听器来捕获任何异常。另外，当请求被关闭时（甚至在这之前），这个流会被销毁掉。如果你不想要这两个特性，就不要将响应体设置为流。你不会希望在代理中设置响应体为HTTP流的，因为这样会破坏基础连接。
 
-  See: https://github.com/koajs/koa/pull/612 for more information.
+  更多内容请看：https://github.com/koajs/koa/pull/612。
 
-  Here's an example of stream error handling without automatically destroying the stream:
+  这个例子中添加了异常捕获并且不会自动销毁 HTTP 流：
 
   ```js
   const PassThrough = require('stream').PassThrough;
@@ -511,22 +507,22 @@ Set response body to one of the following:
     ctx.body = someHTTPStream.on('error', ctx.onerror).pipe(PassThrough());
   });
   ```
+  
+* json字符串化的对象或数组
 
-* Object || Array json-stringified
+  Content-Type 默认为 application/json。包括文本对象和数组。
 
-  The Content-Type is defaulted to application/json. This includes plain objects { foo: 'bar' } and arrays ['foo', 'bar'].
+* 设置为null, 没有响应内容。
 
-* null no content response
-
-If ctx.status has not been set, Koa will automatically set the status to 200 or 204.
+  如果没有设置 ctx.status，Koa 自动将响应状态码设置为 200 或者 204。
 
 #### ctx.status
 
-Get response status. By default, response.status is set to 404 unlike node's res.statusCode which defaults to 200.
+获取响应状态码，Koa 的 `response.status` 默认设置为404，而 node 中 `res.statusCode` 默认设置为 200。
 
 #### ctx.status=
 
-Set response status via numeric code:
+通过数字代码设置响应状态：
 
 * 100 "continue"
 * 101 "switching protocols"
@@ -586,29 +582,27 @@ Set response status via numeric code:
 * 510 "not extended"
 * 511 "network authentication required"
 
-NOTE: don't worry too much about memorizing these strings, if you have a typo an error will be thrown, displaying this list so you can make a correction.
-
+注意：不要担心记不住这些字符串，如果你有字符错误会将会抛出一个异常并显示这个列表，能够快速纠正你的错误。
 
 #### ctx.message
 
-Get response status message. By default, response.message is associated with response.status.
+获取响应的状态消息。response.message 默认和 response.status 相关。
 
 #### ctx.message=
 
-Set response status message to the given value.
+设置响应状态消息。
 
 #### ctx.length=
 
-Set response Content-Length to the given value.
+设置响应头部 Content-Length 的值。
 
 #### ctx.length
 
-Return response Content-Length as a number when present, or deduce from ctx.body when possible, or undefined.
-
+如果存在获取响应头部 Content-Length 的长度，或者从 ctx.body 中计算出来，或者是undefined。
 
 #### ctx.type
 
-Get response Content-Type void of parameters such as "charset".
+获取响应头部 Content-Type 的值，不包括字符集等参数。
 
 ```js
 const ct = ctx.type;
@@ -617,7 +611,7 @@ const ct = ctx.type;
 
 #### ctx.type=
 
-Set response Content-Type via mime string or file extension.
+通过 mime 字符串或者文件扩展名设置响应头部 Content-Type 的值。
 
 ```js
 ctx.type = 'text/plain; charset=utf-8';
@@ -626,18 +620,17 @@ ctx.type = '.png';
 ctx.type = 'png';
 ```
 
-Note: when appropriate a charset is selected for you, for example response.type = 'html' will default to "utf-8", however when explicitly defined in full as response.type = 'text/html' no charset is assigned.
+注意：在适当的时候为你选择一个字符集，例如当 response.type = 'html' 时 默认为 "utf-8"，如果明确的指定完整的类型 response.type = 'text/html'，不设置字符集。
 
 #### ctx.headerSent
 
-Check if a response header has already been sent. Useful for seeing if the client may be notified on error.
-
+检查响应头部是否已经发送给客户端。用于检查客户是否可能被错误通知。
 
 #### ctx.redirect(url, [alt])
 
-Perform a [302] redirect to url.
+对指定的 url 进行 302跳转。
 
-The string "back" is special-cased to provide Referrer support, when Referrer is not present alt or "/" is used.
+"back"是特殊字符串，当 Referrer 不存在或者使用'/'进行跳转时，用来提供 Referrer 支持。
 
 ```js
 ctx.redirect('back');
@@ -646,7 +639,7 @@ ctx.redirect('/login');
 ctx.redirect('http://google.com');
 ```
 
-To alter the default status of 302, simply assign the status before or after this call. To alter the body, assign it after this call:
+如果想要修改默认状态码 302，可以在这个方法调用前后指定。要修改响应体，需要在这个方法调用之后指定。
 
 ```js
 ctx.status = 301;
@@ -654,11 +647,12 @@ ctx.redirect('/cart');
 ctx.body = 'Redirecting to shopping cart';
 ```
 #### ctx.attachment([filename])
-Set Content-Disposition to "attachment" to signal the client to prompt for download. Optionally specify the filename of the download.
+
+将响应头 Content-Disposition 设置为 "attachment" 通知客户端可以进行下载。可以选择设置下载时的文件名。
 
 #### ctx.set(fields)
 
-Set several response header fields with an object:
+通过一个对象设置多个响应头部字段：
 
 ```js
 ctx.set({
@@ -669,7 +663,7 @@ ctx.set({
 
 #### ctx.append(field, value)
 
-Append additional header field with value val.
+通过给定的值追加响应头部。
 
 ```js
 ctx.append('Link', '<http://127.0.0.1/>');
@@ -677,18 +671,18 @@ ctx.append('Link', '<http://127.0.0.1/>');
 
 #### ctx.remove(field)
 
-Remove header field.
+移除指定的响应头部。
 
 #### ctx.lastModified=
 
-Set the Last-Modified header as an appropriate UTC string. You can either set it as a Date or date string.
+使用UTC格式的时间字符串设置最后修改时间。你可以设置 Date 对象实例或者时间字符串。
 
 ```js
 ctx.lastModified = new Date();
 ```
 #### ctx.etag=
 
-Set the ETag of a response including the wrapped "s. Note that there is no corresponding response.etag getter.
+设置包含包装的响应的ETag。注意没有 response.etag 的取值方法。
 
 ```js
 ctx.etag = crypto.createHash('md5').update(ctx.body).digest('hex');

@@ -415,11 +415,11 @@ module.exports = class extends think.Controller {
 
 #### controller.redirect(url)
 
-页面跳转，等用于 [ctx.redirect](/doc/3.0/context.html#toc-3e0)。
+页面跳转，等同于 [ctx.redirect](/doc/3.0/context.html#toc-3e0)。
 
 #### controller.jsonp(data, callback)
 
-输出 jsonp 格式内容，等用于 [ctx.jsonp](/doc/3.0/context.html#toc-45f)。
+输出 jsonp 格式内容，等同于 [ctx.jsonp](/doc/3.0/context.html#toc-45f)。
 
 #### controller.json(data)
 
