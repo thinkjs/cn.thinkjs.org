@@ -2151,3 +2151,29 @@ module.exports = class extends think.Controller {
   }
 }
 ```
+
+### 常见问题
+
+#### 高并发下，多个查询语句只会执行一次
+
+为了查询语句有更高的性能，我们认为，在一次 SQL 语句查询期间，有相同的 SQL 语句需要执行时，那么返回的值是一样的，那么就可以把第一次的查询结果缓存，然后同步给后面的查询语句即可，我们称之为 `debounce`。
+
+如果不希望开启这个功能，那么可以在数据库配置中添加 `debounce: false` 来关闭，如：
+
+```js
+const mysql = require('think-model-mysql');
+exports.model = {
+  type: 'mysql',
+  mysql: {
+    handle: mysql, // Adapter handle
+    user: 'root', // 用户名
+    password: '', // 密码
+    database: '', // 数据库
+    host: '127.0.0.1', // host 
+    port: 3306, // 端口
+    connectionLimit: 1, // 连接池的连接个数，默认为 1
+    prefix: '', // 数据表前缀，如果一个数据库里有多个项目，那项目之间的数据表可以通过前缀来区分
+    debounce: false // 关闭 debounce 功能
+  }
+}
+```
