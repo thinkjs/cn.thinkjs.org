@@ -39,7 +39,7 @@ exports.websocket = {
   },
   socketio: {
     handle: socketio,
-    allowOrigin: '127.0.0.1:8360',  // 默认所有的域名都允许访问
+    origins: '127.0.0.1:8360',  // 默认所有的域名都允许访问
     path: '/socket.io',             // 默认 '/socket.io'
     adapter: null,                  // 默认无 adapter
     messages: [{
@@ -181,7 +181,7 @@ exports.websocket = {
 
 [path](https://socket.io/docs/server-api/#server-path-value) 的详细配置参见文档 [https://socket.io/docs/server-api/#server-path-value](https://socket.io/docs/server-api/#server-path-value)，需要注意的是：如果服务端修改了处理的路径后，客户端也要作对应的修改。
 
-#### 设置 allowOrigin
+#### 设置 origins
 
 默认情况下 `socket.io` 允许所有域名的访问。如果需要修改，可以修改 `src/config/adapter.js` 的配置：
 
@@ -190,12 +190,12 @@ exports.websocket = {
   // ...
   socketio: {
     // ...
-    allowOrigin: '127.0.0.1:8360',
+    origins: '127.0.0.1:8360',
   }
 }
 ```
 
-[allowOrigin](https://socket.io/docs/server-api/#server-origins-value) 的详细配置参见文档 [https://socket.io/docs/server-api/#server-origins-value](https://socket.io/docs/server-api/#server-origins-value)，需要注意的是：如果服务端修改了处理的路径后，客户端也要作对应的修改。
+[origins](https://socket.io/docs/server-api/#server-origins-value) 的详细配置参见文档 [https://socket.io/docs/server-api/#server-origins-value](https://socket.io/docs/server-api/#server-origins-value)，需要注意的是：如果服务端修改了处理的路径后，客户端也要作对应的修改。
 
 #### 设置 adapter
 
@@ -212,3 +212,20 @@ exports.websocket = {
 }
 ```
 [adapter](https://socket.io/docs/server-api/#server-adapter-value) 的详细配置参见文档 [https://socket.io/docs/server-api/#server-adapter-value](https://socket.io/docs/server-api/#server-adapter-value)。
+
+#### 配置nginx
+
+```js
+server {
+    server_name app.domain.com;
+    location / {
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_http_version 1.1;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $host;
+        proxy_pass http://socket_nodes;
+    }
+}
+```
+[参考链接](https://www.nginx.com/blog/nginx-nodejs-websockets-socketio/)
