@@ -2177,3 +2177,27 @@ exports.model = {
   }
 }
 ```
+
+#### 数据库支持 emoji 表情
+
+数据库的编码一般会设置为 `utf8`，但 utf8 并不支持 emoji 表情，如果需要数据库支持 emoji 表情，需要将数据库编码设置为 `utf8mb4`。
+
+同时需要在数据库配置中添加或修改 `charset` 的值为 `utf8mb4`，如：
+
+```js
+const mysql = require('think-model-mysql');
+exports.model = {
+  type: 'mysql',
+  mysql: {
+    handle: mysql, // Adapter handle
+    user: 'root', // 用户名
+    password: '', // 密码
+    database: '', // 数据库
+    host: '127.0.0.1', // host 
+    port: 3306, // 端口
+    connectionLimit: 1, // 连接池的连接个数，默认为 1
+    prefix: '', // 数据表前缀，如果一个数据库里有多个项目，那项目之间的数据表可以通过前缀来区分
+    charset: 'utf8mb4'
+  }
+}
+```
