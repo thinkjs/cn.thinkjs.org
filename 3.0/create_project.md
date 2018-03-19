@@ -66,17 +66,11 @@ $ npm start;
 | |--- controller  //控制器目录 
 | | |--- base.js
 | | |--- index.js
-| |--- service  //服务目录 
-| | |--- **.js //用户自己定义的服务
 | |--- logic //logic 目录
 | | |--- index.js
 | |--- model //模型目录
 | | |--- index.js
 |--- view  //模板目录
 | |--- index_index.html
-|--- www
-| |--- static  //静态资源目录
-| | |--- css
-| | |--- img
-| | |--- js
+
 ```
