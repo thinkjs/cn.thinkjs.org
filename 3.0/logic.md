@@ -506,6 +506,18 @@ module.exports = class extends think.Logic {
 }
 ```
 
+`注：>=think-validator@1.5.0 针对错误信息支持了函数形式`:
+
+```
+// ...
+ let msgs = {
+  address: function({name, validName, rule, args, pargs}) {
+    return 'error message';
+  }
+ }
+// ...
+```
+
 ### 支持的校验类型
 
 #### required
