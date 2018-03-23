@@ -379,7 +379,7 @@ module.exports = class extends think.Logic {
 // src/config/validator.js
 module.exports = {
   rules: {
-    eqLucy(value, { argName, validName, validValue, ctx, currentQuery, rule, rules, parsedValidValue }) {
+    eqLucy(value, { argName, validName, validValue, parsedValidValue, rule, rules, currentQuery, ctx}) {
       return value === validValue;
     }
   },
