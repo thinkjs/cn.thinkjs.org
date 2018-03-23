@@ -284,6 +284,62 @@ module.exports = class extends think.Logic {
 }
 ```
 
+#### 使用 JSON Schema 对 JSON 数据校验
+
+上面提到了对数组、对象的校验，但是系统内置的 JSON 数据校验不是很强大。这里我们使用 json-schema 对复杂的 JSON 数据进行校验。
+
+例如，客户端使用POST方式发送复杂 JSON 数据：
+
+```
+{
+  data: {
+    "foo": 1,
+    "bar": 6
+  }
+}
+```
+
+我们可以在 logic 中配置校验规则：
+
+```
+let rules = {
+  name: {
+    required: true // 此处仍然可以写标准的校验规则
+  },
+  data: {
+    jsonSchema: { // jsonSchema 为自定义的校验方法，可以定义为其他名字
+      "properties": {
+        "foo": { "type": "string" },
+        "bar": { "type": "number", "maximum": 3 }
+      }
+    }
+  }
+}
+```
+
+在 `config/validator.js` 中增加 `jsonSchema` 校验方法：
+
+```
+const Ajv = require('ajv');
+const ajv = new Ajv({allErrors: true});
+
+module.exports = {
+  rules: {
+    jsonSchema: function(value, {argName, validName, validValue, parsedValidValue, rule, rules, currentQuery, ctx}) {
+      let validate = ajv.compile(validValue);
+      let valid = validate(value);
+      if (valid) return true;
+      return {
+        data: ajv.errorsText(validate.errors)
+      };
+    }
+  }
+}
+```
+
+如果校验通过返回 `true`， 如果校验失败返回 `{ 参数名1: 参数错误信息1, 参数名2: 参数错误信息2 }`。
+`注：这种情况下不会进行校验前数据的自动转换、校验后数据的自动转换（自动转化下面会介绍），也不支持标准的错误信息自定义（要在json-schema中定义）。`
+
 #### 校验前数据的自动转换
 
 对于指定为 `boolean` 类型的字段，`'yes'`， `'on'`， `'1'`， `'true'`， `true` 会被转换成 `true`， 其他情况转换成 `false`，然后再执行后续的规则校验；
