@@ -1672,6 +1672,14 @@ module.exports = class extends think.Model {
   updateViewNums(id){
     return this.where({id: id}).increment('view_nums', 1); //将阅读数加 1
   }
+  
+  updateViewAndUserNums(id) {
+    return this.where({id}).increment(['view_nums', 'user_nums'], 1); //将阅读数和阅读人数加 1
+  }
+  
+  updateViewAndUserNums(id) {
+    return this.where({id}).increment({view_nums: 2, user_nums: 1}); //将阅读数加2，阅读人数加 1
+  }
 }
 ```
 
