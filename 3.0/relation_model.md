@@ -2209,3 +2209,16 @@ exports.model = {
   }
 }
 ```
+
+### 模型设置添加 `after(Find|Select)` 钩子之后关联模型数据未获取
+
+因为关联模型也是利用这几个钩子来实现的，如果在继承类中复写了这几个方法的话需要手动的调用基类中的同名方法才会执行关联模型数据获取。
+
+```js
+module.exports = class extends think.Model {
+  afterFind(...args) {
+    super.afterFind(...args);
+    //do something...
+  }
+}
+```
