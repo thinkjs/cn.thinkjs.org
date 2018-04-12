@@ -307,6 +307,7 @@ let rules = {
     required: true // 此处仍然可以写标准的校验规则
   },
   data: {
+    required: true, // 必填，否则data不填写的情况下可以验证通过
     jsonSchema: { // jsonSchema 为自定义的校验方法，可以定义为其他名字
       "properties": {
         "foo": { "type": "string" },
