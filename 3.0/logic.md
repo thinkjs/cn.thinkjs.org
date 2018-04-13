@@ -331,7 +331,7 @@ module.exports = {
       let valid = validate(value);
       if (valid) return true;
       return {
-        data: ajv.errorsText(validate.errors)
+        data: ajv.errorsText(validate.errors); // 校验失败必须以对象的形式返回，一般形式为 字段名: 错误信息
       };
     }
   }
