@@ -15,7 +15,8 @@
       "Router": "router",
       "Adapter": "adapter",
       "Extend": "extend",
-      "异步/错误处理": "async"
+      "异步/错误处理": "async",
+      "断点调试": "debug"
     },
     "模型/数据库": {
       "关系数据库": "relation_model",
