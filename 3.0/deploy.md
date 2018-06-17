@@ -16,6 +16,41 @@
 
 ### 服务管理
 
+#### Docker 
+
+越来越多的业务使用容器服务来部署项目了，ThinkJS 项目要使用容器部署也非常简单。首先我们要创建业务镜像，以下是一个简单的 Dockerfile 文件，包括基础镜像，依赖安装，项目文件拷贝和项目启动四个部分。
+
+```Dockerfile
+FROM mhart/alpine-node:8.9.4
+
+WORKDIR /animaris
+COPY package.json /animaris/package.json
+RUN npm i --production --registry=https://registry.npm.taobao.org
+
+COPY src /animaris/src
+COPY view /animaris/view
+COPY www /animaris/www
+COPY production.js /animaris/production.js
+
+ENV DOCKER=true
+EXPOSE 8360
+CMD [ "node", "/animaris/production.js" ]
+```
+
+创建好构建脚本后使用如下命令进行构建：
+
+```sh
+docker build -t lizheming/animaris ./Dockerfile
+```
+之后使用如下命令运行镜像，即可使用 http://localhost:8360 访问网站：
+
+```sh
+docker run -p 8360:8360 lizheming/animaris
+```
+
+关于更多 Docker 部署 ThinkJS 相关内容可查看[《ThinkJS 项目构建 Docker 镜像
+》](https://zhuanlan.zhihu.com/p/37082611)。
+
 #### PM2
 
 PM2 是一款专业管理 Node.js 服务的模块，建议在线上使用。使用 PM2 需要以全局的方式安装，如： 
