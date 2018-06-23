@@ -88,6 +88,12 @@ module.exports = class extends think.Controller {
       }
     });
   }
+  // 设置缓存超时时间
+  async index2Action() {
+    await this.cache('name', 'value', {
+        timeout: 24 * 60 * 60 * 1000
+    });
+  }
 }
 ```
 
