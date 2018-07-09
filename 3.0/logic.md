@@ -286,7 +286,7 @@ module.exports = class extends think.Logic {
 
 #### 使用 JSON Schema 对 JSON 数据校验
 
-上面提到了对数组、对象的校验，但是系统内置的 JSON 数据校验不是很强大。这里我们使用 json-schema 对复杂的 JSON 数据进行校验。
+上面提到了对数组、对象的校验，但是系统内置的 JSON 数据校验不是很强大。这里我们使用 json schema 对复杂的 JSON 数据进行校验。
 
 例如，客户端使用POST方式发送复杂 JSON 数据：
 
@@ -327,11 +327,11 @@ const ajv = new Ajv({allErrors: true});
 module.exports = {
   rules: {
     jsonSchema: function(value, {argName, validName, validValue, parsedValidValue, rule, rules, currentQuery, ctx}) {
-      let validate = ajv.compile(validValue);
+      let validate = ajv.compile(validValue); // 运行时编译
       let valid = validate(value);
       if (valid) return true;
       return {
-        data: ajv.errorsText(validate.errors); // 校验失败必须以对象的形式返回，一般形式为 字段名: 错误信息
+        [argName]: ajv.errorsText(validate.errors); // 校验失败必须以对象的形式返回，一般形式为 字段名: 错误信息
       };
     }
   }
@@ -339,7 +339,35 @@ module.exports = {
 ```
 
 如果校验通过返回 `true`， 如果校验失败返回 `{ 参数名1: 参数错误信息1, 参数名2: 参数错误信息2 }`。
-`注：>think-validator@1.6.0 支持， 这种情况下不会进行校验前数据的自动转换、校验后数据的自动转换（自动转化下面会介绍），也不支持标准的错误信息自定义（要在json-schema中定义）。`
+
+上面的例子是运行时编译，可以将 json schema 写在一个 JSON 文件中，然后在 validator.js 中引入并进行启动时编译。
+
+```javascript
+const Ajv = require('ajv');
+
+const ajv = new Ajv({ allErrors: true });
+
+// 编译 json schema 文件
+const familyValidator = ajv.compile(require('../schema/family.json'));
+
+function genSchemaRule(validator) {
+  return function(value, { argName }) {
+    const result = validator(value);
+    if (result) return true;
+    return {
+      [argName]: ajv.errorsText(validator.errors)
+    };
+  };
+}
+
+module.exports = {
+  rules: {
+    isFamily: genSchemaRule(familyValidator)
+  }
+};
+```
+
+`注：>think-validator@1.6.0 支持， 这种情况下不会进行校验前数据的自动转换、校验后数据的自动转换（自动转化下面会介绍），也不支持标准的错误信息自定义（要在json schema中定义）。`
 
 #### 校验前数据的自动转换
 
