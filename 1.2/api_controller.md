@@ -2,7 +2,7 @@
 
  此文档表示控制器下接口，在子控制器下可以直接使用。
 
- 如果想在 Controller 里的 Action 查看 http 相关功能，可以查看 [这里](/doc/http.html)。
+ 如果想在 Controller 里的 Action 查看 http 相关功能，可以查看 [这里](./http.html)。
 
 ### ip()
 
@@ -151,7 +151,7 @@ testAction: function(){
 
 如果不传 `name`，那么获取所有上传的文件。
 
-具体的文件格式见： <http://www.ThinkJS.org/doc/http.html# 上传的文件>
+具体的文件格式见： [http://www.ThinkJS.org/doc/http.html# 上传的文件](./http.html#toc-556)
 
 ### header(name, value)
 
