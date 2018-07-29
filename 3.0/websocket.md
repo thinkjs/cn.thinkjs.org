@@ -42,10 +42,10 @@ exports.websocket = {
     allowOrigin: '127.0.0.1:8360',  // 默认所有的域名都允许访问
     path: '/socket.io',             // 默认 '/socket.io'
     adapter: null,                  // 默认无 adapter
-    messages: [{
+    messages: {
       open: '/websocket/open',
       addUser: '/websocket/addUser'
-    }]
+    }
   }
 }
 ```
