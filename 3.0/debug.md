@@ -2,42 +2,30 @@
 
 ### 在 VSCode 下断点调试
 
-* 修改 `src/config/config.js`（多模块项目为 `src/common/config/config.js`），添加 `workers: 1` 配置
-* 在项目根目录下添加文件 `debug.js` （与 development.js 文件同级），内容如下：
-
-```js
-const InspectorProxy = require('inspector-proxy');
-const proxy = new InspectorProxy({ port: 9999 });
-const childProcess = require('child_process');
-
-const instance = childProcess.fork('./development.js', {
-  execArgv: [ '--inspect' ]
-})
-instance.on('message', msg => {
-  if(msg.act === 'inspectPort' && msg.port) {
-    proxy.start({ debugPort: msg.port });
-  }
-})
-instance.on('exit', () => proxy.end());
-```
-* `npm install inspector-proxy` 安装依赖
+* 确保 VSCode 的版本 >= 1.22
 * 添加 VS Code 的调试文件 `.vscode/launch.json`，内容如下：
 
-```json
-{
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Attach Worker",
-      "type": "node",
-      "request": "attach",
-      "restart": true,
-      "port": 9999
-    }
-  ]
-}
-```
-* 命令行下通过 `node debug.js` 启动服务，然后在 VS Code 里打开断点调试。
+  ```json
+  {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "port": 9229,
+        "type": "node",
+        "restart": true,
+        "request": "launch",
+        "name": "ThinkJS Debug",
+        "cwd": "${workspaceRoot}",
+        "runtimeExecutable": "node",
+        "autoAttachChildProcesses": true,
+        "runtimeArgs": ["--inspect", "development.js"]
+      }
+    ]
+  }
+  ```
+* 点击上面的调试按钮来启动服务。
+
+![alt](https://p.ssl.qhimg.com/t01e177d7042059bc7b.png)
 
 ### 在 WebStorm 下断点调试
 
