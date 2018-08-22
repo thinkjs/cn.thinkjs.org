@@ -8,6 +8,13 @@ MVC 模型中，控制器是用户请求的逻辑处理部分。比如：将用�
 
 项目创建时会自动创建了一个名为 `base.js` 的基类，其他 controller 继承该类即可。
 
+你可以通过执行命令 `thinkjs controller xxx [module]`来添加controller，其中`xxx`为controller名称，而`[module]`为多模块项目中的项目名称，这时系统将自动完成controller与对应logic文件的创建，并且初始化其内容。
+```sh
+thinkjs controller user //新建user控制器
+thinkjs controller auth api //在api模块下创建auth控制器
+```
+你也可以直接在对应目录中新建文件，如新建`//src/controller/user.js`来达到创建controller的目的
+
 ```js
 //src/controller/user.js
 
@@ -20,6 +27,8 @@ module.exports = class extends Base {
 ```
 
 创建完成后，框架会监听文件变化然后重启服务。这时访问 `http://127.0.0.1:8360/user/index` 就可以看到输出的 `hello word!`
+
+
 
 ### Action 执行
 
