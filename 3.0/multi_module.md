@@ -15,3 +15,11 @@ thinkjs new demo -m
 * `src/common` 存放一些公共的代码
 * `src/home` 默认的模块
 * `src/xxx` 按照功能添加模块
+
+### 添加模块
+
+添加模块直接通过 `thinkjs` 命令即可完成。
+
+在当前项目目录下，执行 `thinkjs module xxx`，即可创建名为 `xxx` 的模块。
+
+如果模块名已经存在，则无法创建。
