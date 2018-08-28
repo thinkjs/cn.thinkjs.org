@@ -1276,7 +1276,7 @@ module.exports = class extends think.Model {
 ```js
 module.exports = class extends think.Model {
   async getList(){
-    let sql = await this.model('group').buildSql();
+    let sql = await this.model('group').buildSelectSql();
     //SELECT * FROM `think_user` LEFT JOIN ( SELECT * FROM `think_group` ) ON think_user.`gid`=( SELECT * FROM `think_group` ).`id`
     return this.join({
       table: sql,
@@ -2159,6 +2159,23 @@ module.exports = class extends think.Controller {
   }
 }
 ```
+#### model.buildSelectSql(options, noParentheses)
+
+* `options` {object} 
+* `noParentheses` {boolean} 返回的字符串前后不加圆括号
+* `return` {String}
+
+根据条件生成 SELECT 语句。
+
+```js
+module.exports = class extends think.Controller {
+  async indexAction() {
+    const user = this.model('user');
+    const sql = await user.where({id: 1}).buildSelectSql();
+  }
+}
+```
+
 
 ### 常见问题
 
