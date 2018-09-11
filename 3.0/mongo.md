@@ -426,7 +426,7 @@ module.exports = class extends think.Controller {
     const model = this.mongo('user');
     //第一个参数为要添加的数据，第二个参数为添加的条件，根据第二个参数的条件查询无相关记录时才会添加
     const result = await model.thenAdd({name: 'xxx', pwd: 'yyy'}, {email: 'xxx'});
-    // result returns {id: 1000, type: 'add'} or {id: 1000, type: 'exist'}
+    // result returns {_id: 1000, type: 'add'} or {_id: 1000, type: 'exist'}
   }
 }
 ```
@@ -438,7 +438,7 @@ module.exports = class extends think.Controller {
   async addAction(){
     const model = this.mongo('user');
     const result = await model.where({email: 'xxx'}).thenAdd({name: 'xxx', pwd: 'yyy'});
-    // result returns {id: 1000, type: 'add'} or {id: 1000, type: 'exist'}
+    // result returns {_id: 1000, type: 'add'} or {_id: 1000, type: 'exist'}
   }
 }
 ```
