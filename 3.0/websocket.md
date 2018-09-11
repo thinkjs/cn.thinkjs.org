@@ -15,7 +15,7 @@ module.exports = {
 };
 ```
 
-与此同时，ThinkJs将`websocket`封装为`think-websocket`,但是需要在项目目录下执行
+与此同时，ThinkJS将`websocket`封装为`think-websocket`,但是需要在项目目录下执行
 ```sh
 $ npm install -s think-websocket
 ```
