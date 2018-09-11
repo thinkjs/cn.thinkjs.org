@@ -15,6 +15,12 @@ module.exports = {
 };
 ```
 
+与此同时，ThinkJS将`websocket`封装为`think-websocket`,但是需要在项目目录下执行
+```sh
+$ npm install -s think-websocket
+```
+来安装模块
+
 ### 配置 WebSocket
 
 WebSocket 是以 `extend` 的形式集成到 ThinkJS 的，首先要配置 `src/config/extend.js`:
