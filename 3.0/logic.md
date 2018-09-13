@@ -525,7 +525,7 @@ module.exports = {
     },
 
     eqLucy(value, { argName, validName, validValue, parsedValidValue, currentQuery, ctx, rule, rules }) {
-      return value === parsedValue;
+      return value === parsedValidValue;
     }
   },
   messages: {
