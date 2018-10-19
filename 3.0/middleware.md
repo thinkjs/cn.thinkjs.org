@@ -166,7 +166,16 @@ module.exports = [
 module.exports = [
   {
     handle: 'xxx-middleware',
-    match: '/resource' //请求的 URL 是 /resource 打头时才生效这个 middleware
+    match: '/resource' //请求的 URL 是 /resource 时才生效这个 middleware，全匹配
+  }
+]
+```
+
+```js
+module.exports = [
+  {
+    handle: 'xxx-middleware',
+    match: /^\/resource/ //请求的 URL 命中这个正则时才生效
   }
 ]
 ```
