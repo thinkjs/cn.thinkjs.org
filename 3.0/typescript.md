@@ -50,6 +50,18 @@ export default class extends think.Controller {
   }
 }
 ```
+有参数的 service 推荐直接用 new 来实例化，这样可以在编辑器里直接看到参数类型，代码也更简洁。
+```js
+// in controller
+import { think } from 'thinkjs';
+import SomeService from '../service/someservice';
+
+export default class extends think.Controller {
+  indexAction() {
+    const serviceInstance = new SomeService(param1, param2);
+  }
+}
+```
 
 ### TSLint
 TypeScript 的项目编写风格与 JavaScript 的非常接近，只要经过一段时间的上手就能适应。我们还基于 ThinkJS 项目的特点配置了一套 TSLint 的规则包含在项目模板里。使用 TSLint 能更快速的在团队里实施规范，并保护代码。
