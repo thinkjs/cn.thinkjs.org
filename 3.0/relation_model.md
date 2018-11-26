@@ -1874,7 +1874,7 @@ module.exports = class extends think.Controller {
 
 ```js
 module.exports = class extends think.Model{
-  // 获取字段值之和
+  // 获取总条数
   getScoreCount() {
     // SELECT COUNT(score) AS think_count FROM `test_d` LIMIT 1
     return this.count('score');
