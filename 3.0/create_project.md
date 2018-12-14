@@ -16,7 +16,7 @@ $ npm install -g think-cli
 ### 卸载旧版本命令
 
 ```sh
-$ npm uninstall -g thinkjs
+$ npm uninstall -g think-cli
 ```
 
 ### 创建项目
