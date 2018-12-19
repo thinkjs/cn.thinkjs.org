@@ -626,13 +626,6 @@ module.exports = class extends think.Model {
 
 ```js
 module.exports = class extends think.Model {
-  constructor(...args){
-    super(...args);
-    this.relation = {
-      comment: think.Model.HAS_MANY,
-      cate: think.Model.MANY_TO_MANY
-    };
-  }
   getList(){
     return this.setRelation(false).select();
   }
@@ -645,13 +638,6 @@ module.exports = class extends think.Model {
 
 ```js
 module.exports = class extends think.Model {
-  constructor(...args){
-    super(...args);
-    this.relation = {
-      comment: think.Model.HAS_MANY,
-      cate: think.Model.MANY_TO_MANY
-    };
-  }
   getList2(){
     return this.setRelation('comment').select();
   }
@@ -664,13 +650,6 @@ module.exports = class extends think.Model {
 
 ```js
 module.exports = class extends think.Model {
-  constructor(...args){
-    super(...args);
-    this.relation = {
-      comment: think.Model.HAS_MANY,
-      cate: think.Model.MANY_TO_MANY
-    };
-  }
   getList2(){
     return this.setRelation('comment', false).select();
   }
@@ -683,13 +662,6 @@ module.exports = class extends think.Model {
 
 ```js
 module.exports = class extends think.Model {
-  constructor(...args){
-    super(...args);
-    this.relation = {
-      comment: think.Model.HAS_MANY,
-      cate: think.Model.MANY_TO_MANY
-    };
-  }
   getList2(){
     return this.setRelation(true).select();
   }
@@ -702,13 +674,6 @@ module.exports = class extends think.Model {
 
 ```js
 module.exports = class extends think.Model {
-  constructor(...args){
-    super(...args);
-    this.relation = {
-      comment: think.Model.HAS_MANY,
-      cate: think.Model.MANY_TO_MANY
-    };
-  }
   getList2(page){
     // 动态设置 comment 的分页
     return this.setRelation('comment', {page}).select();
