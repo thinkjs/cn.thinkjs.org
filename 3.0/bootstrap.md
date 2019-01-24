@@ -4,7 +4,7 @@
 
 ### bootstrap
 
-系统启动时会加载 `src/boostrap/` 目录下的文件，具体为：
+系统启动时会加载 `src/bootstrap/` 目录下的文件，具体为：
 
 * Master 进程下时加载 `src/bootstrap/master.js`
 * Worker 进程下时加载 `src/bootstrap/worker.js`
