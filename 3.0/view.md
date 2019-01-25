@@ -257,7 +257,7 @@ module.exports = class extends think.Controller {
 
 #### 怎么在模板里使用 session/cache 的功能？
 
-有时候需要在模板里获取 session/cache 相关的信息，但由于 session/cache 的操作都是异步的，所以无法直接调用 `controller.session` 来操作，需要在 Action 里获取到数据然后赋值导模板中，如：
+有时候需要在模板里获取 session/cache 相关的信息，但由于 session/cache 的操作都是异步的，所以无法直接调用 `controller.session` 来操作，需要在 Action 里获取到数据然后赋值到模板中，如：
 
 ```js
 module.exports = class extends think.Controller {
