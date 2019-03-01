@@ -421,7 +421,7 @@ exports.model = {
     parser: sql => {
       // 这里会把当前要执行的 SQL 传递进来
       const sqlLower = sql.toLowerCase();
-      if(sql.indexOf('select ') === 0) {
+      if (sqlLower.startWith('select ')) {
         return {
           host: '',
           port: ''
