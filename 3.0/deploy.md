@@ -220,7 +220,7 @@ module.exports = [
   ...
   {
     handle: 'resource',
-    enable: true // 始终开启，默认为 `enable: isDev` 表示只再开发环境下开启
+    enable: true // 始终开启，默认为 `enable: isDev` 表示只在开发环境下开启
   },
   ...
 ]
