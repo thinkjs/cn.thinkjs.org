@@ -22,6 +22,8 @@ MongoDB 的数据库配置复用了关系数据库模型的配置，为 adapter 
 
 
 ```js
+const mongo = require('think-mongo');
+
 exports.model = {
   type: 'mongo', // 默认使用的类型，调用时可以指定参数切换
   common: { // 通用配置
@@ -29,6 +31,7 @@ exports.model = {
     logger: msg => think.logger.info(msg) // 打印信息的 logger
   },
   mongo: {
+    handle: mongo,
     host: '127.0.0.1',
     port: 27017,
     user: '',
@@ -45,6 +48,8 @@ exports.model = {
 可以支持多个 host 和 port， 如：
 
 ```js
+const mongo = require('think-mongo');
+
 exports.model = {
   type: 'mongo', // 默认使用的类型，调用时可以指定参数切换
   common: { // 通用配置
@@ -52,6 +57,7 @@ exports.model = {
     logger: msg => think.logger.info(msg) // 打印信息的 logger
   },
   mongo: {
+    handle: mongo
     host: ['127.0.0.1', '10.16.1.2'],
     port: [27017, 27018],
     user: '',
