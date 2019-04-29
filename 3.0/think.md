@@ -360,7 +360,7 @@ function test() {
 }
 
 test().then((result)=>{
-  resut === '1'
+  result === '1'
 })
 ```
 
