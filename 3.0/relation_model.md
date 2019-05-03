@@ -210,7 +210,7 @@ const user2 = think.model('admin/user'); // 实例化后台的 user 模型
 * [avg](/doc/3.0/relation_model.html#toc-8d2) 查询字段的平均值
 * [min](/doc/3.0/relation_model.html#toc-1d7) 查询字段的最小值
 * [sum](/doc/3.0/relation_model.html#toc-c11) 对字段值进行求和
-* [getField](/doc/3.0/relation_model.html#toc-f0a) 查询指定字段的值
+* [getField](/doc/3.0/relation_model.html#toc-f0a) 查询指定字段的值 #该函数在mongo下面没有对应的
 
 同时模型支持通过下面的方法指定 SQL 语句中的特定条件，如：
 
