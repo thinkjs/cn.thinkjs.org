@@ -66,6 +66,7 @@ module.exports = class extends think.Controller {
   }
 }
 ```
+注：禁止在获取 cache 的回调中再次获取同 name 的 cache 操作，否则会导致业务死锁，详见 [thinkjs/thinkjs#1407](https://github.com/thinkjs/thinkjs/issues/1407)。
 
 #### 设置缓存
 
