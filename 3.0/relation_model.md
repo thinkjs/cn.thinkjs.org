@@ -2199,8 +2199,8 @@ exports.model = {
 
 ```js
 module.exports = class extends think.Model {
-  afterFind(...args) {
-    super.afterFind(...args);
+  async afterFind(...args) {
+    await super.afterFind(...args);
     //do something...
   }
 }
