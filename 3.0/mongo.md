@@ -35,8 +35,9 @@ exports.model = {
     password: '',
     database: '', // 数据库名称
     options: {
-      replicaSet: 'mgset-3074013',
-      authSource: 'admin'
+      // 身份验证相关
+      // replicaSet: 'mgset-3074013',
+      // authSource: 'admin'
     }
   }
 }
@@ -58,8 +59,9 @@ exports.model = {
     password: '',
     database: '', // 数据库名称
     options: {
-      replicaSet: 'mgset-3074013',
-      authSource: 'admin'
+      // 身份验证相关
+      // replicaSet: 'mgset-3074013',
+      // authSource: 'admin'
     }
   }
 }
