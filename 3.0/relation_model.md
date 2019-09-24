@@ -1513,10 +1513,8 @@ module.exports = class extends think.Controller {
 }
 ```
 
-#### model.selectAdd(fields, table, options)
+#### model.selectAdd(options)
 
-* `fields` {Array | String} 列名
-* `table` {String} 表名
 * `options` {Object} 操作选项，会通过 [parseOptions](/doc/3.0/relation_model.html#toc-d91) 方法解析
 * `return` {Promise} 返回插入的 ID 列表
 
@@ -1526,13 +1524,17 @@ module.exports = class extends think.Controller {
 module.exports = class extends think.Controller {
   async addAction(){
     let model = this.model('user');
-    let insertIds = await model.selectAdd(
-      'xxx,xxx1,xxx2',
-      'tableName',
-      {
-        id: '1'
-      }
-    );
+    let insertIds = await model.selectAdd({table: 'user_2'});
+  }
+}
+```
+
+```js
+module.exports = class extends think.Controller {
+  async addAction(){
+    let user = this.model('user');
+    let user2 = this.model('user2').field('name');
+    let insertIds = await user.field('name').selectAdd(user2);
   }
 }
 ```
