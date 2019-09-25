@@ -1447,6 +1447,38 @@ module.exports = class extends think.Controller {
 }
 ```
 
+有时候希望通过 `REPLACE INTO` 来代替 `INSERT INTO`，那么可以传递 `options.replace`：
+
+```js
+module.exports = class extends think.Controller {
+  async addAction(){
+    let model = this.model('user');
+    let insertId = await model.add({
+      name: 'xxx',
+      pwd: 'yyy'
+    }, {
+      replace: true
+    });
+  }
+}
+```
+
+如果想用 `INSERT IGNORE INTO`，那么可以：
+
+```js
+module.exports = class extends think.Controller {
+  async addAction(){
+    let model = this.model('user');
+    let insertId = await model.add({
+      name: 'xxx',
+      pwd: 'yyy'
+    }, {
+      ignore: true
+    });
+  }
+}
+```
+
 有时候需要借助数据库的一些函数来添加数据，如：时间戳使用 mysql 的 `CURRENT_TIMESTAMP` 函数，这时可以借助 `exp` 表达式来完成。
 
 ```js
@@ -1460,6 +1492,7 @@ module.exports = class extends think.Controller {
   }
 }
 ```
+
 
 #### model.thenAdd(data, where)
 
@@ -1513,6 +1546,35 @@ module.exports = class extends think.Controller {
 }
 ```
 
+```js
+module.exports = class extends think.Controller {
+  async addAction(){
+    let model = this.model('user');
+    let insertIds = await model.addMany([
+      {name: 'xxx', pwd: 'yyy'},
+      {name: 'xxx1', pwd: 'yyy1'}
+    ], {
+      ignore: true // 使用 INSERT IGNORE INTO
+    });
+  }
+}
+```
+
+
+```js
+module.exports = class extends think.Controller {
+  async addAction(){
+    let model = this.model('user');
+    let insertIds = await model.addMany([
+      {name: 'xxx', pwd: 'yyy'},
+      {name: 'xxx1', pwd: 'yyy1'}
+    ], {
+      replace: true // 使用 REPLACE INTO
+    });
+  }
+}
+```
+
 #### model.selectAdd(options)
 
 * `options` {Object} 操作选项，会通过 [parseOptions](/doc/3.0/relation_model.html#toc-d91) 方法解析
@@ -1532,9 +1594,34 @@ module.exports = class extends think.Controller {
 ```js
 module.exports = class extends think.Controller {
   async addAction(){
-    let user = this.model('user');
-    let user2 = this.model('user2').field('name');
-    let insertIds = await user.field('name').selectAdd(user2);
+    const user = this.model('user');
+    const user2 = this.model('user2').field('name');
+    const options = await user2.parseOptions();
+    let insertIds = await user.field('name').selectAdd(options);
+  }
+}
+```
+
+```js
+module.exports = class extends think.Controller {
+  async addAction(){
+    const user = this.model('user');
+    const user2 = this.model('user2').field('name');
+    const options = await user2.parseOptions();
+    options.replace = true; // 使用 REPLACE INTO
+    let insertIds = await user.field('name').selectAdd(options);
+  }
+}
+```
+
+```js
+module.exports = class extends think.Controller {
+  async addAction(){
+    const user = this.model('user');
+    const user2 = this.model('user2').field('name');
+    const options = await user2.parseOptions();
+    options.ignore = true; // 使用 INSERT IGNORE INTO
+    let insertIds = await user.field('name').selectAdd(options);
   }
 }
 ```
