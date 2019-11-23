@@ -126,3 +126,5 @@ module.exports = class extends think.Controller {
 #### 数据可以缓存在 Node.js 的内存中么？
 
 理论上是可以的，但并不建议这么做。当缓存数据量暴涨时会导致内存占用量过大，进而影响用户请求的处理，得不偿失。
+
+
