@@ -477,7 +477,7 @@ module.exports = class extends think.Controller {
 module.exports = class extends think.Controller {
   async deleteAction(){
     let model = this.mongo('user');
-    let affectedRows = await model.where({id: ['>', 100]}).delete();
+    let affectedRows = await model.where({id: {$gt, 100}}).delete();
   }
 }
 ```
