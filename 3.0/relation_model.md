@@ -2160,7 +2160,7 @@ module.exports = class extends think.Model {
 
 由于 `Service` 中默认没有 `ctx` 对象，如果也想复用数据库连接的话，可以自己包装下，将 `ctx` 传入进去，然后将 `model` 方法重新改下即可。
 
-```
+```js
 export class BaseService extends think.Service {
    constructor(ctx) {
      this.ctx = ctx;
