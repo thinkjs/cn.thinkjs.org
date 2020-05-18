@@ -75,6 +75,7 @@ exports.model = {
     connectionLimit: 1, // 连接池的连接个数，默认为 1
     prefix: '', // 数据表前缀，如果一个数据库里有多个项目，那项目之间的数据表可以通过前缀来区分
     acquireWaitTimeout: 0, // 等待连接的超时时间，避免获取不到连接一直卡在那里，开发环境下有用
+    reuseDB: false // 是否复用数据库连接，事务的时候可能会用到
   }
 }
 ```
