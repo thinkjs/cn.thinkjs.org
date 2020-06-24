@@ -721,3 +721,25 @@ module.exports = class extends think.Controller {
 * `return` {Promise}
 
 获取索引
+
+#### model.transaction(fn, transactionOptions)
+* `fn` {Function} 事务回调
+* `transactionOptions` {Object} 事务选项
+* `return` {Promise}
+
+执行事务操作，只要其中有出错则回滚所有数据库操作。需要注意的是跨表操作需要将 fn 回调中的 `session` 变量赋值到其它表的 `model.options.session` 属性上。下面是个非常简单的使用示例。`transactionOptions` 对象最终会传给 mongodb 的 `session.startTransaction()` 方法，可配置的属性可参考 mongodb 文档 [Session.startTransaction()](https://docs.mongodb.com/manual/reference/method/Session.startTransaction/#Session.startTransaction)。
+
+```js
+// src/model/user.js
+module.exports = class extends think.Mongo {
+  async addUser() {
+    const PostModel = this.mongo('post');
+    return this.transaction(async session => {
+      PostModel.options.session = session;
+      const userId = await UserModel.add({name: 'lizheming'});
+      await PostModel.add({userId, content: 'Hello World'});
+    });
+  }
+}
+```
+注：该方法于 `think-mongo@2.1.0` 中加入
