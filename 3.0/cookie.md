@@ -36,7 +36,7 @@ Set-Cookie: key2=value2; path=path; domain=domain; max-age=max-age-in-seconds; e
 
 框架中是通过 [cookies](https://github.com/pillarjs/cookies) 模块来进行 Cookie 的读取与设置的，支持如下的配置：
 
-* `maxAge`: cookie的超时时间，表示当前时间（`Date.now()`）之后的毫秒数。
+* `maxAge`: cookie 的超时时间，表示当前时间（`Date.now()`）之后的毫秒数。
 * `expires`: `Date` 对象，表示cookie的到期时间（不指定的话，默认是在会话结束时过期）。
 * `path`: 字符串，表示 cookie 的路径（默认是`/`）。
 * `domain`: 字符串，表示 cookie 的域（没有默认值）。
