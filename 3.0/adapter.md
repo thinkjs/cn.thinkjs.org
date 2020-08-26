@@ -77,7 +77,7 @@ Adapter 的配置解析是通过 [think-helper](https://github.com/thinkjs/think
 const helper = require('think-helper');
 const viewConfig = think.config('view'); // 获取 view adapter 的详细配置
 
-const nunjucks = helper.parseAdatperConfig(viewConfig); // 获取 nunjucks 的配置，默认 type 为 nunjucks
+const nunjucks = helper.parseAdapterConfig(viewConfig); // 获取 nunjucks 的配置，默认 type 为 nunjucks
 /**
 {
   type: 'nunjucks',
@@ -88,7 +88,7 @@ const nunjucks = helper.parseAdatperConfig(viewConfig); // 获取 nunjucks 的�
 }
 */
 
-const ejs = helper.parseAdatperConfig(viewConfig, 'ejs') // 获取 ejs 的配置
+const ejs = helper.parseAdapterConfig(viewConfig, 'ejs') // 获取 ejs 的配置
 /**
 {
   handle: ejs,
