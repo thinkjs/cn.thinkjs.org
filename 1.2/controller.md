@@ -78,7 +78,7 @@ module.exports = Controller(function(){
             var self = this;
             return this.session("userInfo").then(function(data){
                 if(isEmpty(data)){
-                    // 如果未登录跳转到登录页。由于 redirect 方法返回的是个 pendding promise，那么后面的 action 方法并不会被执行
+                    // 如果未登录跳转到登录页。由于 redirect 方法返回的是个 pending promise，那么后面的 action 方法并不会被执行
                     return self.redirect("/login"); 
                 }else{
                     // 设置后，后面的 action 里直接通过 this.userInfo 就可以拿到登录用户信息了
@@ -116,7 +116,7 @@ module.exports = Controller(function(){
 })
 ```
 
-`__before`，`action`， `__after` 是通过 promise 的链式调用的，如果当前操作返回一个 reject promise 或者 pedding promise，那么则会阻止后面的执行。
+`__before`，`action`， `__after` 是通过 promise 的链式调用的，如果当前操作返回一个 reject promise 或者 pending promise，那么则会阻止后面的执行。
 
 ### Action 参数自动绑定
 
@@ -210,13 +210,13 @@ module.exports = Controller({
 * `isPost()` 当前是否是 post 请求
 * `isAjax()` 是否是 ajax 请求
 * `ip()` 获取请求用户的 ip
-* `redirect(url)` 跳转到一个 url，返回一个 pedding promise 阻止后面的逻辑继续执行
+* `redirect(url)` 跳转到一个 url，返回一个 pending promise 阻止后面的逻辑继续执行
 * `echo(data)` 输出数据，会自动调用 JSON.stringify
 * `end(data)` 结束当前的 http 请求
 * `json(data)` 输出 json 数据，自动发送 json 相关的 Content-Type
 * `jsonp(data)` 输出 jsonp 数据，请求参数名默认为 `callback`
-* `success(data)` 输出一个正常的 json 数据，数据格式为 `{errno: 0, errmsg: "", data: data}`，返回一个 pedding promise 阻止后续继续执行
-* `error(errno, errmsg, data)` 输出一个错误的 json 数据，数据格式为 `{errno: errno_value, errmsg: string, data: data}`，返回一个 pedding promise 阻止后续继续执行
+* `success(data)` 输出一个正常的 json 数据，数据格式为 `{errno: 0, errmsg: "", data: data}`，返回一个 pending promise 阻止后续继续执行
+* `error(errno, errmsg, data)` 输出一个错误的 json 数据，数据格式为 `{errno: errno_value, errmsg: string, data: data}`，返回一个 pending promise 阻止后续继续执行
 * `download(file)` 下载文件
 * `assign(name, value)` 设置模版变量
 * `display()` 输出一个模版，返回一个 promise
