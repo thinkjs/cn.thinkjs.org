@@ -1698,7 +1698,7 @@ module.exports = class extends think.Controller {
 
 当 where 条件未命中到任何数据时添加数据，命中数据则更新该数据。
 
-注：`thenAdd()` 本质是 `find()` 和 `add()`、`update()` 方法的包装，有使用 `beforeAdd()`, `afterAdd()`, `beforeFind()`, `afterFind()`, `beforeUpdate`, `afterUpdate()` 钩子函数的需要注意一下。
+注：`thenUpdate()` 本质是 `find()` 和 `add()`、`update()` 方法的包装，有使用 `beforeAdd()`, `afterAdd()`, `beforeFind()`, `afterFind()`, `beforeUpdate`, `afterUpdate()` 钩子函数的需要注意一下。
 
 #### updateMany(dataList, options)
 
