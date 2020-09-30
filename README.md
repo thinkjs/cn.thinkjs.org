@@ -1,2 +1,3 @@
 # cn.thinkjs.org
-# If we find any error and bugs  contact i will give you a gift  
+
+If you find any typo or error, please open a pull request to fix it :)
