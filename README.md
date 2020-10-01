@@ -1,1 +1,1 @@
-# cn.thinkjs.org
+# cn.thinkjs.orgn - Build An Awesome Project
