@@ -34,7 +34,7 @@ babel-preset-think-node 只会转译 [es2015-modules-commonjs](http://babeljs.io
 
 ### 关闭 Babel 转译
 
-如果项目运行的 Node 版本大于 `7.6.0`（推荐使用 8.x.x LTS 版本），那么已经支持 `async/await` 了，就可以关闭 Babel 转译了。
+如果项目运行的 Node 版本大于 `7.6.0`（推荐使用 12.x.x LTS 版本），那么已经支持 `async/await` 了，就可以关闭 Babel 转译了。
 
 #### 创建项目时关闭转译
 
