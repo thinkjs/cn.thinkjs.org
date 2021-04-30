@@ -679,7 +679,7 @@ module.exports = class extends think.Controller {
 * `field` {String} 字段名
 * `return` {Number|Array} 返回求和结果
 
-没有分组情况下，默认返回数字，有人组的情况下返回分组信息以及求和结果，如下示例：
+没有分组情况下，默认返回数字，有分组的情况下返回分组信息以及求和结果，如下示例：
 
 ```js
 module.exports = class extends think.Controller {
