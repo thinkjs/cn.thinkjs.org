@@ -28,7 +28,30 @@ const instance = new Application({
 instance.run();
 
 ```
+如果要增加presets和plugins可以增加transpiler的参数：
+```js
+const Application = require('thinkjs');
+const babel = require('think-babel');
+const watcher = require('think-watcher');
+const notifier = require('node-notifier');
 
+const instance = new Application({
+  ROOT_PATH: __dirname,
+  watcher: watcher,
+  transpiler: [babel, {
+    presets: ['think-node',"@babel/env"], // 增加了babel 7的预设，需要升级到babel 7，6同理
+    plugins: [
+            ["@babel/plugin-proposal-decorators", { "legacy": true }],
+            ["@babel/plugin-proposal-class-properties", { "loose": true }]
+        ]//增加了babel 7的插件，6同理
+  }],
+  notifier: notifier.notify.bind(notifier),
+  env: 'development'
+});
+
+instance.run();
+
+```
 babel-preset-think-node 只会转译 [es2015-modules-commonjs](http://babeljs.io/docs/plugins/transform-es2015-modules-commonjs/)、[exponentiation-operator](http://babeljs.io/docs/plugins/transform-exponentiation-operator/)、[trailing-function-commas](http://babeljs.io/docs/plugins/syntax-trailing-function-commas/)、[async-to-generator](http://babeljs.io/docs/plugins/transform-async-to-generator/)、[object-rest-spread](http://babeljs.io/docs/plugins/transform-object-rest-spread/)，如果这些转译不能满足需求的话，可以根据需要自己定制 babel preset。
 
 
