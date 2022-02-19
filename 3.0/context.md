@@ -764,6 +764,10 @@ if(isCli){
 }
 ```
 
+#### ctx.request.rawBody
+
+可以通过 `ctx.request.rawBody` 获取到当前请求的原始数据。默认是通过 [think-payload](https://github.com/thinkjs/think-payload) 模块赋值。
+
 #### ctx.referer(onlyHost)
 
 * `onlyHost` {Boolean} 是否只返回 host
