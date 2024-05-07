@@ -478,7 +478,7 @@ module.exports = {
 自定义的校验方法会被注入以下参数，对于上述例子来说
 ```js
 (
-  value: ,                // 参数在相应的请求中的值，此处为 ctx['param']['name1']
+  value,                // 参数在相应的请求中的值，此处为 ctx['param']['name1']
   {
     argName,              // 参数名称，此处为 name1
     validName,            // 校验方法名，此处为 'eqLucy'
@@ -1054,7 +1054,7 @@ module.exports = class extends think.Logic {
     let rules = {
       field_name: {
         length: {min: 10}, //长度不能小于10
-        // length: {max: 20}, //长度不能大于10
+        // length: {max: 20}, //长度不能大于20
         // length: {min: 10, max: 20}, //长度需要在 10 - 20 之间
         // length: 10 //长度需要等于10
       }
